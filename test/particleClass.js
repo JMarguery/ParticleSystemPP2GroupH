@@ -138,11 +138,8 @@ class Particle {
         context.fill();
     }else{
         particleAll.splice(particleAll.indexOf(this),particleAll.indexOf(this));
-        console.log(particleAll);
-
         delete this;
     }
-        // on ne met pas le redraw du canvas dans la fonction mais dans setInterval, sinon on va redraw par dessus toutes les autres particules.
     }
 
     static update(){
