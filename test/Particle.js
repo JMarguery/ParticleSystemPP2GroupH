@@ -1,20 +1,8 @@
 
-var context;
 var canvas;
 var bgcolor;
 // createEmptyCanvas(int: width,int :height, Color: color)
 // Créer un canvas vide de largeur width, hauteur height, de couleur color et l'ajoute au body du document
-function createEmptyCanvas(width=800,height=500,color="black"){
-    canvas = document.createElement("canvas");
-    context = canvas.getContext("2d");
-    bgcolor = color;
-    canvas.width = width;
-    canvas.height = height;
-    document.body.appendChild(canvas);
-    context.fillStyle = bgcolor;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-}
-
 /* 
 ___________________________________________________________
 
@@ -89,11 +77,11 @@ class Particle{
     // Dessine la particule.
     // Appelé par le passeur
     draw(){
-        context.fillStyle = this.color;
-        context.beginPath();
-        context.arc(this.position.x,this.position.y,this.radius,0,Math.PI*2,true);
-        context.closePath();
-        context.fill();
+        CanvasManager.context.fillStyle = this.color;
+        CanvasManager.context.beginPath();
+        CanvasManager.context.arc(this.position.x,this.position.y,this.radius,0,Math.PI*2,true);
+        CanvasManager.context.closePath();
+        CanvasManager.context.fill();
     }
 
     // tickTTL() 

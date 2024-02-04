@@ -10,6 +10,7 @@ ___________________________________________________________
 
 Champs :
 
+ priorityArray : Array a dessiner en priorité (= dessous).
  passArray : Array de Particle pour la mise à jour du canvas
 ___________________________________________________________
 
@@ -23,12 +24,18 @@ ___________________________________________________________
 
 class Passeur{
 
+    priorityArray;
     passArray;
 
-    constructor(passArray=[]){
+    constructor(priorityArray=[],passArray=[]){
+        this.priorityArray = priorityArray;
         this.passArray = passArray;
     }
 
+
+    pushPriorityArray(instance){
+        this.priorityArray.push(instance);
+    }
 
     //pushPassArray(Particle : instance)
     // Ajoute la particule à passArray
@@ -44,9 +51,12 @@ class Passeur{
     //pass()
     // Efface le canvas puis appelle tickttl() sur chaque particule dans passArray, si elle est toujours en vie on la dessine, sinon on la supprime de passArray et on la met à null.
     pass(){
-        context.fillStyle = bgcolor;
-        context.fillRect(0,0,canvas.width,canvas.height);
-        let to_be_removed = []; 
+        CanvasManager.context.fillStyle = CanvasManager.bgcolor;
+        CanvasManager.context.fillRect(0,0,CanvasManager.canvas.width,CanvasManager.canvas.height);
+        let to_be_removed = [];
+        for(let j of this.priorityArray){
+            j.draw();
+        }
         for(let j of this.passArray){
             let instance = j;  
             if (instance.tickttl()){
