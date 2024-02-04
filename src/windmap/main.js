@@ -12,10 +12,10 @@ const resolution = 10;
 
 
 //Initialise le canvas avec CanvasManager
-CanvasManager.create(width, height, 'grey'); // Example initialization
+CanvasManager.create(width, height, 'grey');
 
 //Initialise la grille de vecteurs
-VectorGrid.create(resolution, width, height); // Adjust resolution, width, and height as needed
+VectorGrid.create(resolution, width, height);
 
 
 const spawnPointLimit = {
@@ -46,13 +46,17 @@ setInterval(function(){
 },30);
 
 
+
 // On fait spawn 1 particles toutes les 0.1 secondes
 setInterval(function(){
     let spawnPointRandom = {
         x: getRandomInt(spawnPointLimit.x.min, spawnPointLimit.x.max),
         y: getRandomInt(spawnPointLimit.y.min, spawnPointLimit.y.max)
     };
-    new Particle(spawnPointRandom.x,spawnPointRandom.y, color[getRandomInt(0,5)], 4, getRandomInt(700,1000)).instantiate();
+    new Particle(spawnPointRandom.x,spawnPointRandom.y, color[getRandomInt(0,5)], 3, getRandomInt(50,100), getRandomInt(1,2), getRandomInt(20,60)).instantiate();
 
 },100);
+
+
+
 
