@@ -53,7 +53,7 @@ setInterval(function(){
         x: getRandomInt(spawnPointLimit.x.min, spawnPointLimit.x.max),
         y: getRandomInt(spawnPointLimit.y.min, spawnPointLimit.y.max)
     };
-    new Particle(spawnPointRandom.x,spawnPointRandom.y, color[getRandomInt(0,5)], 3, getRandomInt(50,100), getRandomInt(1,2), getRandomInt(20,60)).instantiate();
+    new Particle(spawnPointRandom.x,spawnPointRandom.y, color[getRandomInt(0,5)], 3, getRandomInt(50,50), getRandomInt(1,2), getRandomInt(100,200)).instantiate();
 
 },100);
 

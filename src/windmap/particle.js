@@ -172,12 +172,12 @@ class Particle {
         }else {
             if((this.position.x > CanvasManager.canvas.width || this.position.x < 0 || this.position.y > CanvasManager.canvas.height || this.position.y < 0 ) || !this.tickTTL()){
                 this.isMovable = false;
+                this.createTrail();
+                this.drawParticle();
             }
             else {
                 this.goAlongVector();
-
                 this.drawParticle();
-
             }
         }
     }
