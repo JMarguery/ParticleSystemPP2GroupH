@@ -63,12 +63,12 @@ class VectorGrid {
         let centerY = this.rows / 2;
 
         /*
-        pattern pour faire spiral modifiable
+        //pattern pour faire spiral modifiable
 
         for (let i = 0; i < this.cols; i++) {
             for (let j = 0; j < this.rows; j++) {
                 const radius = Math.sqrt((i - centerX) ** 2 + (j - centerY) ** 2);
-                const angleIncrement = 1; // Adjust as needed
+                const angleIncrement = 0.1; // Adjust as needed
                 const spiralFactor = angleIncrement * radius;
                 this.vecteurs[i][j] = {
                     x: Math.cos(spiralFactor),
@@ -76,6 +76,8 @@ class VectorGrid {
                 };
             }
         }
+
+
          */
 
         // créer un pattern ou les particules tournent autour du centre du tableau
