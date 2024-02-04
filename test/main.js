@@ -9,33 +9,32 @@ var color = [
 function getRandomInt(min,max) {
     return Math.floor(Math.random() * (max-min)+min);
   }
-/*
-function colorBasedOnSpeed(vel){
-    speed = 
-}
-*/
 // On créer un canvas vide (ici on utilise les valeurs de base, 800x500 fond noir)
-createEmptyCanvas();
+createEmptyCanvas(1920,1080);
 var spawnPointLimit = {
     x:{
-        min:-200,
-        max:800,
+        min:600,
+        max:1000,
     },
     y:{
         min:0,
-        max:0
+        max:500
     }
     };
+
+var passeur = new Passeur([]);
 // On créer et instancie 2 particules
-let p = new ParticleSpeed(100,100,10,1,0,100);
-let p2 = new ParticleSpeed(200,200,10,1,0,100);
-p.instantiate();
-p2.instantiate();
+let p = new Particle("red",10,100,100,passeur,-1);
+let p2 = new Particle("blue",20,300,400,passeur,-1);
+
+let p3 = new ParticlePhysic("green",10,300,0,passeur,5,5,100,0.5);
+
+p3.instantiate();
 
 // On met a jour toutes les particules toute les 30ms
 setInterval(function(){
-    Particle.update();
-},30);
+    passeur.pass();
+},0.5);
 // On instancie une particule bleu à [100,100] toute les 3000ms
 setInterval(function(){
     var spawnPointRandom = {
@@ -45,5 +44,9 @@ setInterval(function(){
         x: getRandomInt(-3,3),
         y:getRandomInt(-1,1),
     }
-    new ParticleSpeed(spawnPointRandom.x,spawnPointRandom.y,5,randVel.x,randVel.y,100).instantiate();
-},1);
+    let pa = new ParticlePhysic(color[getRandomInt(0,color.length)],10,spawnPointRandom.x,spawnPointRandom.y,passeur,randVel.x,randVel.y,100,0.5);
+    new ParticleSpeed(10,500,0,passeur,randVel.x,randVel.y,100,0.5).instantiate();
+    new ParticleTTL(10,spawnPointRandom.x,spawnPointRandom.y,passeur,100).instantiate();
+
+
+},1000);
