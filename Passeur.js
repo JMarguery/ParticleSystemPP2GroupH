@@ -71,7 +71,7 @@ class Passeur{
             to_be_removed.push(instance);
         }
         }
-        if (to_be_removed.length!==0){
+        if (to_be_removed.length!=0){
             for (let k of to_be_removed){
                 this.removePassArray(k);
             }
