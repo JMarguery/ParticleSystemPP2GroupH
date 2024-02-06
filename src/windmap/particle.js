@@ -1,6 +1,6 @@
 // createEmptyCanvas(int: width,int :height, Color: color)
 // Créer un canvas vide de largeur width, hauteur height, de couleur color et l'ajoute au body du document
-/*
+/* 
 ___________________________________________________________
 
 Class Particle :
@@ -8,7 +8,7 @@ Class Particle :
 Permet de créer une particule ronde.
 ___________________________________________________________
 
-Champs :²
+Champs :
 
 color : Couleur du cercle
 Radius : Rayon du cercle
@@ -25,7 +25,7 @@ Particle (
     float : startPosX,
     float : startPosY,
     Passeur : passeur,
-    int : maxTTL
+    int : maxTTL 
 )
 ___________________________________________________________
 */
@@ -62,7 +62,7 @@ class Particle{
         this.passeur.pushPassArray(this);
     }
 
-    // distance(Particle : p)
+    // distance(Particle : p) 
     // distance jusqu'à la particule p.
 
     distance(p){
@@ -70,7 +70,7 @@ class Particle{
     }
 
 
-    // draw()
+    // draw() 
     // Dessine la particule.
     // Appelé par le passeur
     draw(){
@@ -81,7 +81,7 @@ class Particle{
         CanvasManager.context.fill();
     }
 
-    // tickTTL()
+    // tickTTL() 
     // Augmente le champs ttl de 1 et renvoie vrai si ttl<maxTTL, faux sinon.
     // Si maxttl == -1, on retourne vrai sans incrémenter.
 

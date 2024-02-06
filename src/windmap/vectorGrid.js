@@ -16,10 +16,11 @@ resolution : + la resolution est petite plus il y aura de vecteurs dans 1 ligne 
 cols : nb de colonnes dans la grille
 rows : nb de lignes dans la grille
 vecteurs : grille de vecteurs
+vecteurList : Liste [x,y,vecteurs[i,j]] utilisé pour le draw
 ___________________________________________________________
 
 Constructeur :
-Particle (
+VectorGrid (
     float : résolution,
     float : width,
     float : height,
@@ -38,6 +39,10 @@ create() : constructeur static pour créer un VectorGrid avec un pattern ou les 
 getVecteur(coordX, coordY) : retourne le vecteur correspondant à la position x y passé en argument
 
 static drawVector(x, y, vector) : Dessiner un vecteur à partir d'un point (x, y) dans une direction spécifique (vecteur)
+
+static draw() : Dessine tous les vecteurs
+
+static updateVectorList() : Update la liste des vecteurs
 ___________________________________________________________
 */
 
@@ -46,6 +51,7 @@ class VectorGrid {
     static cols;
     static rows;
     static vecteurs;
+    static vecteurList;
 
     // Initialize the grid statically
     static create(resolution, width, height) {
@@ -53,7 +59,7 @@ class VectorGrid {
         this.cols = Math.floor(width / resolution);
         this.rows = Math.floor(height / resolution);
         this.vecteurs = new Array(this.cols);
-
+        this.vecteurList = [];
         for (let i = 0; i < this.cols; i++) {
             this.vecteurs[i] = new Array(this.rows);
         }
@@ -96,15 +102,36 @@ class VectorGrid {
                     x: vectorX,
                     y: vectorY,
                 };
+                this.vecteurList.push([i * this.resolution + this.resolution / 2,j * this.resolution + this.resolution / 2,this.vecteurs[i][j]])
             }
         }
 
+    }
+
+    static updateVectorList(){
+        this.vecteurList = [];
+        for (let i=0;i< this.cols;i++){
+            for (let j=0;j<this.rows;j++){
+            // Calcul des coordonnées du point de départ pour le vecteur
+            let x = i * this.resolution + this.resolution / 2; // Centre du carré de la grille
+            let y = j * this.resolution + this.resolution / 2; // Centre du carré de la grille
+            let vecteur = this.vecteurs[i][j];
+            this.vecteurList.push([x,y,vecteur]);
+            // Dessin du vecteur à partir de cette position
+            }
+        }
     }
 
     static getVecteur(coordX, coordY) {
         const col = Math.floor(coordX / this.resolution);
         const row = Math.floor(coordY / this.resolution);
         return this.vecteurs[col][row];
+    }
+
+    static draw(){
+        for (let ar of this.vecteurList){
+            this.drawVector(ar[0],ar[1],ar[2]);
+        }
     }
 
     static drawVector(x, y, vector) {
