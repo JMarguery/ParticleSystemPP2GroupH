@@ -8,7 +8,15 @@ class ParticleFire extends Particle {
 
     trailLength;
 
-    constructor(color,radius,posX,posY,maxttl,maxSpeed, trailLength){
+    spreadX;
+
+    spreadY;
+
+    startPosX;
+
+    startPosY;
+
+    constructor(color,radius,posX,posY,maxttl,maxSpeed, trailLength, spreadX, spreadY){
 
         super(color,radius,posX,posY,(maxttl+trailLength));
 
@@ -21,6 +29,14 @@ class ParticleFire extends Particle {
         this.isMovable = true;
 
         this.trailLength = trailLength;
+
+        this.spreadX = spreadX;
+
+        this.spreadY = spreadY;
+
+        this.startPosX = posX;
+
+        this.startPosY = posY;
 
     }
 
@@ -62,8 +78,8 @@ class ParticleFire extends Particle {
 
     goUpwards() {
         let direction = {
-            x:getRandomFloat(-40,40),
-            y:getRandomFloat(0,-30),
+            x:getRandomFloat(-this.spreadX/2,this.spreadX/2),
+            y:getRandomFloat(0,-this.spreadY),
         };
 
         this.updateOldPositions();
@@ -96,7 +112,7 @@ class ParticleFire extends Particle {
             let rgbaMatch = this.color.match(/rgba\((\d+),(\d+),(\d+),([\d.]+)\)/);
 
             let redValue = parseInt(rgbaMatch[1]);
-            let greenValue = parseInt(rgbaMatch[2]);
+            let greenValue = parseInt(rgbaMatch[2])+255-Math.abs(this.oldPositions[i].y - this.startPosY);
             let blueValue = parseInt(rgbaMatch[3]);
             let alphaValue = parseFloat(rgbaMatch[4]);
 
