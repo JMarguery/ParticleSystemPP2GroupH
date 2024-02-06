@@ -79,9 +79,9 @@ class ParticleWindMap extends Particle {
 
     trailLength
 
-    constructor(color,radius,posX,posY,passeur,maxttl,maxSpeed, trailLength){
+    constructor(color,radius,posX,posY,maxttl,maxSpeed, trailLength){
 
-        super(color,radius,posX,posY,passeur,(maxttl+trailLength));
+        super(color,radius,posX,posY,(maxttl+trailLength));
         
         this.maxSpeed = maxSpeed;
 

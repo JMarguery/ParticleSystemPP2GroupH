@@ -24,33 +24,33 @@ ___________________________________________________________
 
 class Passeur{
 
-    priorityArray;
-    passArray;
+    static priorityArray;
+    static passArray;
 
-    constructor(priorityArray=[],passArray=[]){
-        this.priorityArray = priorityArray;
-        this.passArray = passArray;
+    static create(){
+        this.priorityArray = [];
+        this.passArray = [];
     }
 
 
-    pushPriorityArray(instance){
+    static pushPriorityArray(instance){
         this.priorityArray.push(instance);
     }
 
     //pushPassArray(Particle : instance)
     // Ajoute la particule à passArray
-    pushPassArray(instance){
+    static pushPassArray(instance){
         this.passArray.push(instance);
     }  
     //removePassArray(Particle : instance)
     // Retire la particule de passArray
-    removePassArray(instance){
+    static removePassArray(instance){
         this.passArray.splice(this.passArray.indexOf(instance),1);
     }
 
     //pass()
     // Efface le canvas puis appelle tickttl() sur chaque particule dans passArray, si elle est toujours en vie on la dessine, sinon on la supprime de passArray et on la met à null.
-    pass(){
+    static pass(){
         CanvasManager.context.fillStyle = CanvasManager.bgcolor;
         CanvasManager.context.fillRect(0,0,CanvasManager.canvas.width,CanvasManager.canvas.height);
         let to_be_removed = [];

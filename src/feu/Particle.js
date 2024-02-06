@@ -38,18 +38,16 @@ class Particle{
         x:0,
         y:0,
     };
-    passeur;
     ttl;
     maxttl;
 
-    constructor(color,radius,posX,posY,passeur,maxttl){
+    constructor(color,radius,posX,posY,maxttl){
         this.radius = radius;
         this.color = color;
         this.position = {
             x:posX,
             y:posY
         };
-        this.passeur = passeur;
         this.ttl=0;
         this.maxttl = maxttl;
     }
@@ -59,7 +57,7 @@ class Particle{
     // Envoie la particule au passeur
 
     instantiate(){
-        this.passeur.pushPassArray(this);
+        Passeur.pushPassArray(this);
     }
 
     // distance(Particle : p) 
