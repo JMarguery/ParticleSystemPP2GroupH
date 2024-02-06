@@ -125,17 +125,10 @@ class ParticleWindMap extends Particle {
     }
 
     limitSpeed(vector){
-        if (vector.x > this.maxSpeed){
-            vector.x = this.maxSpeed;
-        }
-        if (vector.y > this.maxSpeed){
-            vector.y = this.maxSpeed;
-        }
-        if (vector.x < -this.maxSpeed){
-            vector.x = -this.maxSpeed;
-        }
-        if (vector.y < -this.maxSpeed){
-            vector.y = -this.maxSpeed;
+        const speed = Math.sqrt(vector.x ** 2 + vector.y ** 2);
+        if (speed > this.maxSpeed) {
+            vector.x = (vector.x / speed) * this.maxSpeed;
+            vector.y = (vector.y / speed) * this.maxSpeed;
         }
     }
 
