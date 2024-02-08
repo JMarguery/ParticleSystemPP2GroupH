@@ -108,7 +108,7 @@ class ParticleFire extends Particle {
 
     createTrail(){
         for (let i = 0; i < this.oldPositions.length; i++) {
-            let size = (i + 1) / this.oldPositions.length; // change petit a petit la taille
+            let size = (i + 1) / (this.trailLength/2); // change petit a petit la taille
             let rgbaMatch = this.color.match(/rgba\((\d+),(\d+),(\d+),([\d.]+)\)/);
 
             let redValue = parseInt(rgbaMatch[1]);

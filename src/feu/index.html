@@ -11,5 +11,16 @@
 <script src="passeur.js"></script>
 <script src="Particle.js"></script>
 <script src="ParticleFire.js"></script>
+<script src="ParticleSmoke.js"></script>
 <script src="main.js"></script>
+
+<form>
+  <label for="WindSpeed">Windspeed</label>
+  <input type="number" id="WindSpeed" name="WindSpeed" min="-5" max="5">
+  <button type="button" onclick="updateWindSpeed()">Update wind speed</button>
+</br>
+  <label for="updateInterval">updateInterval</label>
+  <input type="number" id="updateInterval" name="updateInterval" min="1">
+  <button type="button" onclick="updateIntervalUpdate()">Update Interval update</button>  
+</form> 
 </html>

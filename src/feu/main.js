@@ -23,7 +23,8 @@ const spawnPointLimit = {
 // On met a jour toutes les particules toute les 30ms
 setInterval(function(){
     Passeur.pass();
-},30);
+    console.log(Passeur.updateInterval);
+},Passeur.updateInterval);
 
 
 
@@ -31,8 +32,10 @@ setInterval(function(){
 
 setInterval(function(){
     let spawnPointRandom = {
-        x: 450,
+        x: 200,
         y: 450
     };
-    new ParticleFire("rgba(255,0,0,1)",getRandomInt(4,6),spawnPointRandom.x,spawnPointRandom.y,getRandomInt(50,100),getRandomFloat(5,10),getRandomInt(100,200),20,10).instantiate();
+    
+    //new ParticleFire("rgba(255,0,0,1)",getRandomInt(4,6),spawnPointRandom.x,spawnPointRandom.y,getRandomInt(50,100),getRandomFloat(5,10),getRandomInt(100,200),20,10).instantiate();
+    //new ParticleSmoke("rgba(128,128,128,1)",getRandomInt(4,6),spawnPointRandom.x,spawnPointRandom.y,getRandomInt(50,100),getRandomFloat(5,20),getRandomInt(100,200),20,10,5).instantiate();
 },30);

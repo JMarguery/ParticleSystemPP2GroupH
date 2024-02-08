@@ -26,10 +26,12 @@ class Passeur{
 
     static priorityArray;
     static passArray;
+    static updateInterval;
 
     static create(){
         this.priorityArray = [];
         this.passArray = [];
+        this.updateInterval = 30;
     }
 
 
@@ -46,6 +48,10 @@ class Passeur{
     // Retire la particule de passArray
     static removePassArray(instance){
         this.passArray.splice(this.passArray.indexOf(instance),1);
+    }
+
+    static updateUpdateInterval(i){
+        this.updateInterval = i;
     }
 
     //pass()
