@@ -34,7 +34,7 @@ const spawnPointLimit = {
 
 
 // On met a jour toutes les particules toute les 30ms
-setInterval(function(){
+let intervalRendu = setInterval(function(){
     Passeur.pass();
 },30);
 
@@ -42,12 +42,12 @@ setInterval(function(){
 
 // On fait spawn 1 particles toutes les 0.1 secondes
 
-setInterval(function(){
+let spawnSpeed = setInterval(() => {
     let spawnPointRandom = {
         x: getRandomInt(spawnPointLimit.x.min, spawnPointLimit.x.max),
         y: getRandomInt(spawnPointLimit.y.min, spawnPointLimit.y.max)
     };
-    //new Particle(spawnPointRandom.x,spawnPointRandom.y, color[getRandomInt(0,5)], 3, getRandomInt(50,100), getRandomInt(1,2), getRandomInt(20,60)).instantiate();
-    //new Particle(color[getRandomInt(0,5)],3,spawnPointRandom.x,spawnPointRandom.y,passeur,100).instantiate();
-    new ParticleWindMap(getRandomRGBA(),3,spawnPointRandom.x,spawnPointRandom.y,getRandomInt(50,100),getRandomInt(1,2),getRandomInt(20,60)).instantiate();
-},100);
+
+    //ParticleWindMap.constructor(     color,     radius,     posX,     posY,     maxttl,     maxSpeed,     trailLength)
+    new ParticleWindMap(getRandomRGBA(),3,spawnPointRandom.x,spawnPointRandom.y,getRandomInt(100,100),getRandomInt(1,2),getRandomInt(50,100)).instantiate();
+},30);

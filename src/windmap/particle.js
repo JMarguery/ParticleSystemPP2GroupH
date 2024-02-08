@@ -13,7 +13,6 @@ Champs :
 color : Couleur du cercle
 Radius : Rayon du cercle
 position : Dictionnaire {x,y} position de départ
-passeur : Passeur pour le render
 maxTTL : TTL maximum de la particule
 ttl : nombre de cycle effectué
 ___________________________________________________________
