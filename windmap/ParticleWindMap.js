@@ -11,15 +11,15 @@ ___________________________________________________________
 
 Champs :
 
-startPos : Dictionnaire {x,y} position de départ
-position : Dictionnaire {x,y} position actuelle
 color : Couleur du cercle
 Radius : Rayon du cercle
-Velocity : Dictionnaire {x,y}, vélocité de la particule
-maxSpeed : vitesse max d'une particule
-maxttl : TTL maximum de la particule
+position : Dictionnaire {x,y} de la position
+maxTTL : TTL maximum de la particule
 ttl : nombre de cycle effectué
-isMovable : si la particule peut se deplacer
+
+oldPosition : Tableau des anciennes positions de la particule
+maxSpeed : vitesse max d'une particule
+isMovable : si la particule peut se déplacer
 trailLength : taille de la trainée derrière la particule
 ___________________________________________________________
 
@@ -42,29 +42,26 @@ Particle (
 
 ___________________________________________________________
 
-Methodes :
+Méthodes :
 
-distance(Particle : p) = distance jusqu'à la particule p.
-
-instantiate() = Envoie la particule au passeur
-
-tickTTL() = Augmente le champs ttl de 1 et renvoie vrai si ttl<maxttl OU this.oldPosition.length==0, faux sinon.
-
-move() =
-Si la particule ne peut plus se déplacer, a chaque update on suprimme le dernier element de oldPosition
+move() = gère la logique pour le mouvement d'une particule :
+Si la particule ne peut plus se déplacer, a chaque update on supprime le dernier element de "oldPosition"
 sinon :
-    Si la particule n'est plus dans le canvas (les coordonées sur x ou y son < 0 ou > width / height du canvas) : on lui dit de ne plus se déplacé
+    Si la particule n'est plus dans le canvas (les coordonnées en dehors du canvas) :
+         on lui dit de ne plus se déplacer et on continue d'afficher la traînée
+    sinon :
+        on appelle goAlongVector pour déplacer la particule
 
-    sinon : on appelle goAlongVector pour déplacer la particule
+limitSpeed(vector) = si le vecteur direction est plus long que la vitesse max, on limite la vitesse
 
-limitSpeed(vector) = vérifie si pour x ou y d'un vecteur si la vitesse est > a maxSpeed ou < -maxSpeed
+goAlongVector() = Récupère le vecteur direction dans la grille de vecteurs en fonction de la position x y actuel de la particule
+On limite la "vitesse" si besoin, appel updateOldPositions, ensuite on déplace la particule enfin createTrail()
 
-goAlongVector() = Recupère le vecteur direction de la grille de vecteurs en fonction de la position actuel de la particule
-+ limite la vitesse si elle est supérieur à maxSpeed puis deplace la particule dans la direction du vecteur
+createTrail() = parcours la liste des anciennes positions de la particule et y dessine un rond.
+Le rond est de plus en plus petit en fonction de son indice dans le tableau (la plus ancienne sera la plus petite).
 
-createTrail() = parcours la liste des anciennes positions de la particules et y dessine un rond, le rond est de plus en plus petit en fonction de son indice dans le tableau (la plus ancienne sera la plus petite)
-
-updateOldPositions() = avant chaque déplacement, on met la position de la particule dans le tableau et on supprime la dernier element si la taille est > à trailLength
+updateOldPositions() = avant chaque déplacement, on met la position de la particule dans le tableau et
+on supprime le dernier element si la taille du tableau est > à trailLength
 ___________________________________________________________
 
 */
