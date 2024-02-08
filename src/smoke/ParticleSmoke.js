@@ -17,8 +17,10 @@ class ParticleSmoke extends ParticleFire{
 
     createTrail(){
         for (let i = 0; i < this.oldPositions.length; i++) {
-            let size = (i + 1) / this.oldPositions.length; // change petit a petit la taille
+            let size = (i + 1) / this.trailLength; // change petit a petit la taille
+            /*
             let rgbaMatch = this.color.match(/rgba\((\d+),(\d+),(\d+),([\d.]+)\)/);
+
 
             let redValue = parseInt(rgbaMatch[1])+255-Math.abs(this.oldPositions[i].y - this.startPosY);
             let greenValue = parseInt(rgbaMatch[2])+255-Math.abs(this.oldPositions[i].y - this.startPosY);
@@ -28,6 +30,8 @@ class ParticleSmoke extends ParticleFire{
             alphaValue = (i + 1) / this.oldPositions.length;
 
             CanvasManager.context.fillStyle = `rgba(${redValue},${greenValue},${blueValue},${alphaValue})`;
+             */
+            CanvasManager.context.fillStyle = this.color;
             CanvasManager.context.beginPath();
             CanvasManager.context.arc(this.oldPositions[i].x, this.oldPositions[i].y, this.radius * size, 0, Math.PI * 2, true);
             CanvasManager.context.closePath();

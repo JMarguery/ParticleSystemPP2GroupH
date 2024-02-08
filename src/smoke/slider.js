@@ -28,12 +28,11 @@ sliderSpawnSpeed.oninput = function() {
     clearInterval(spawnSpeed); // Clear the previous interval
     spawnSpeed = setInterval(() => {
         let spawnPointRandom = {
-            x: 200,
-            y: 450
+            x: getRandomInt(spawnPointLimit.x.min, spawnPointLimit.x.max),
+            y: getRandomInt(spawnPointLimit.y.min, spawnPointLimit.y.max)
         };
 
-        //ParticleSmoke.constructor(     color,     radius,     posX,     posY,     maxttl,     maxSpeed,     trailLength,     spreadX,     spreadY,     windSpeed)
-        new ParticleSmoke("rgba(255,255,0,1)",getRandomInt(4,6),spawnPointRandom.x,spawnPointRandom.y,getRandomInt(50,100),getRandomFloat(5,10),getRandomInt(100,200),20,10).instantiate();
+        new ParticleSmoke("rgba(128,128,128,0.2)",getRandomInt(4,6),spawnPointRandom.x,spawnPointRandom.y,getRandomInt(50,100),getRandomFloat(5,20),getRandomInt(100,200),20,10).instantiate();
     }, parseInt(this.value));
     valueSpawnSpeed.innerText = this.value
 }
