@@ -5,22 +5,22 @@
   <title>Title</title>
 </head>
 <body>
+
+<div class="slidecontainer">
+  <label> Interval Rendu <input type="range" min="0.001" max="100" value="30" class="slider" id="updateSpeed"></label>
+  <label> Interval Spawn Particules <input type="range" min="0.1" max="100" value="30" class="slider" id="spawnSpeed"></label>
+  <label> Spread X  <input type="range" min="1" max="100" value="40" class="slider" id="SpreadX"></label>
+  <label> Spread Y  <input type="range" min="1" max="100" value="20" class="slider" id="SpreadY"></label>
+</div>
+
+
 </body>
 <script src="utils.js"></script>
+<script src="slider.js"></script>
 <script src="canvasManager.js"></script>
 <script src="passeur.js"></script>
 <script src="Particle.js"></script>
 <script src="ParticleFire.js"></script>
-<script src="ParticleSmoke.js"></script>
 <script src="main.js"></script>
 
-<form>
-  <label for="WindSpeed">Windspeed</label>
-  <input type="number" id="WindSpeed" name="WindSpeed" min="-5" max="5">
-  <button type="button" onclick="updateWindSpeed()">Update wind speed</button>
-</br>
-  <label for="updateInterval">updateInterval</label>
-  <input type="number" id="updateInterval" name="updateInterval" min="1">
-  <button type="button" onclick="updateIntervalUpdate()">Update Interval update</button>  
-</form> 
 </html>
