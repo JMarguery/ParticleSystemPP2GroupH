@@ -71,9 +71,7 @@ class ParticlePhysic extends Particle{
 // draw()
 // On met a jour la vélocité.y selon la gravité, on met a jour la position puis on dessine la particule
 // Appelé par le passeur
-
     
-
     draw(){
         if(this.isMovable){
             this.velocity.y+=this.gravity;
