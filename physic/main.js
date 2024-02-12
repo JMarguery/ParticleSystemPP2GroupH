@@ -10,12 +10,12 @@ Passeur.create();
 //passeur.pushPriorityArray(VectorGrid);
 const spawnPointLimit = {
     x:{
-        min:0,
-        max:800,
+        min:100,
+        max:400,
     },
     y:{
-        min:0,
-        max:500,
+        min:10,
+        max:200,
     }
 };
 
@@ -38,16 +38,16 @@ spawnDir.fun = function(){
         x: getRandomInt(spawnPointLimit.x.min,spawnPointLimit.x.max),
         y: getRandomInt(spawnPointLimit.y.min,spawnPointLimit.y.max),
     };
-    // ParticleFire.constructor(     color,     radius,     posX,     posY,     maxttl,     maxSpeed,     trailLength,     spreadX,     spreadY)
-    new ParticlePhysic(
+    new ParticlePhysicBounded(
         getRandomRGBA(),
         5,
         spawnPointRandom.x,
         spawnPointRandom.y,
         getRandomInt(-10,10),
         getRandomInt(0,5),
-        getRandomInt(50,200),
-        1
+        getRandomInt(100,500),
+        1,
+        0.9,
     ).instantiate();
 
 };

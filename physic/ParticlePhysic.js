@@ -49,7 +49,15 @@ class ParticlePhysic extends Particle{
     };
     gravity = 0.5;
     isMovable = true;
-    constructor(color,radius,posX,posY,velX,velY,maxttl,gravity){
+    constructor(
+        color,
+        radius,
+        posX,
+        posY,
+        velX,
+        velY,
+        maxttl,
+        gravity){
 
         super(color,radius,posX,posY,maxttl);
 
