@@ -52,7 +52,6 @@ class Map {
                 });
                 this.pos = data;
                 console.log(this.pos);
-                console.log(typeof(this.pos));
             })
     }
 
