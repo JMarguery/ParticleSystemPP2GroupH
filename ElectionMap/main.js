@@ -7,7 +7,24 @@ const particleType = Particle;
 //Initialise le canvas avec CanvasManager
 CanvasManager.create(width, height, 'grey');
 
-let bg = new Background("../img/france_scaled.png")
+let bg = new Map("../img/france_scaled.png",(704/15.5),(623/9),5.3737,51.2301)
+
+bg.getArrayPointsFromCsvUrl('./data/cities.csv')
+
+
+let i=0
+
+setInterval(function(){
+    new Particle(
+        getRandomRGBA(),
+        3,
+        bg.pos[i][0],
+        bg.pos[i][1],
+        -1,
+    ).instantiate();
+    i+=1;
+    console.log("drawing at "+bg.pos[i][0]+","+bg.pos[i][1]+" i = "+i)
+},1)
 
 function instantiateParticle(x,y){
     new Particle(
@@ -25,12 +42,49 @@ Passeur.create();
 proj4.defs("EPSG:3857", 
 '+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m \+nadgrids=@null \+no_defs');
 
-let topLeft = [51.2301,-5.3737]
-let botRight = [41.8719,10.0537]
-let middle = [45.8354,1.2645]
+let topLeft = {
+    lat:51.2301,
+    long:-5.3737,
+    x:0,
+    y:0}
 
-const earthRadius = 6371;
+let botRight = {
+    lat:41.8719,
+    long:10.0537,
+    x:704,
+    y:623}
 
+let middle = {
+    lat:45.8354,
+    long:1.2645,
+    x:352,
+    y:311.5}
+
+let toulouse = {
+    lat:43.6045,
+    long:1.4442,
+    x:0,
+    y:0}
+
+let marseille = {
+    lat:43.2959,
+    long:5.3697,
+    x:0,
+    y:0}
+
+let pTopLeft = new LatLonSpherical(topLeft.lat,topLeft.long)
+let pBotRight = new LatLonSpherical(botRight.lat,botRight.long)
+
+let x=(marseille.long +5.3737) * (704/15.5) // Longitude to pixel.X
+let y=(51.2301-marseille.lat)* (623/9) // Lattitude to pixel.Y
+
+//let botx=(10.0537-middle.long) * (704/15.5)
+//let boty=(middle.lat-41.8719)* (623/9.4)
+console.log("x = "+x+"px , y = "+y+"px")
+//console.log("x = "+botx+"px , y = "+boty+"px")
+//console.log(x+((botx-x)/2))
+//console.log(y+((boty-y)/2))
+/*
 let point1 = new LatLonSpherical(topLeft[0],topLeft[1])
 let point2 = new LatLonSpherical(botRight[0],botRight[1])
 
@@ -42,6 +96,7 @@ let point = [
     -distancePixel * Math.cos(rad),
     distancePixel * Math.sin(rad)
 ]
+console.log("distance metre : "+distanceMeters);
 console.log("y = "+(point[0]*0.6))
 console.log("x = "+point[1]*0.6)
 
@@ -49,7 +104,7 @@ console.log("x = "+point[1]*0.6)
 
 console.log(degree+"°")
 console.log((distancePixel));
-
+*/
 Passeur.pushPriorityArray(bg);
 
 //passeur.pushPriorityArray(VectorGrid);
@@ -83,7 +138,7 @@ spawnDir.fun = function(){
         x: getRandomInt(spawnPointLimit.x.min,spawnPointLimit.x.max),
         y: getRandomInt(spawnPointLimit.y.min,spawnPointLimit.y.max),
     };
-
+/*
     new Particle(
         getRandomRGBA(),
         10,
@@ -91,6 +146,6 @@ spawnDir.fun = function(){
         spawnPointRandom.y,
         getRandomInt(50,200),
     ).instantiate();
-    
+ */   
 };
 spawnSpeed=setInterval(spawnDir.fun,spawnDir.t);
