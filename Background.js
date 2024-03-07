@@ -31,7 +31,7 @@ class Map {
     }
 
     getPointsFromCsvUrl(url){
-        console.log("url");
+        console.log(url);
         fetch(url)
             .then(response=>response.text())
             .then(csvi => {

@@ -28,6 +28,27 @@ function getRandomRGBA(){
     return `rgba(${red},${green},${blue},${alpha})`;
 }
 
+function matchCourantPolitiqueWithRGBA(str){
+    switch (str){
+        case "EXTREME GAUCHE":
+            return "#bb0000"
+        case "GAUCHE RADICALE":
+            return "#dd0000"
+        case "GAUCHE":
+            return "#ff8080"
+        case "ECOLOGISME":
+            return "#00c000"
+        case "CENTRE":
+            return "#00ffff"
+        case "DROITE":
+            return "#0066cc"
+        case "EXTREME DROITE":
+            return "#0d378a"
+        case "DIVERS":
+            return "#eeeeee"
+    }
+}
+
 // Fonction pour générer des directions symétriques autour de la direction initiale
 function genererDirectionsSymetriques(nombreParticules, angleDirectionInitiale, angleDispersion) {
     let directions = [];
