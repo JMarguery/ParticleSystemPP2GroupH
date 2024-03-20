@@ -128,11 +128,13 @@ class VectorGrid {
         return this.vecteurs[col][row];
     }
 
+
     static draw(){
         for (let ar of this.vecteurList){
             this.drawVector(ar[0],ar[1],ar[2]);
         }
     }
+
 
     static drawVector(x, y, vector) {
         CanvasManager.context.beginPath();

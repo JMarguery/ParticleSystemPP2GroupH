@@ -67,106 +67,41 @@ ___________________________________________________________
 */
 
 class ParticleWindMap extends Particle {
-
     maxSpeed;
-
-    oldPositions;
-
     isMovable;
-
-    trailLength
-
-    constructor(color,radius,posX,posY,maxttl,maxSpeed, trailLength){
-
-        super(color,radius,posX,posY,(maxttl+trailLength));
-        
+    constructor(color, radius, posX, posY, maxttl, maxSpeed) {
+        super(color, radius, posX, posY, (maxttl*2));
         this.maxSpeed = maxSpeed;
-
-        this.oldPositions = [];
-
-        this.oldPositions.push({x:posX,y:posY});
-
         this.isMovable = true;
-
-        this.trailLength = trailLength;
-
     }
 
-    
-    draw(){
+    draw() {
         this.move();
         super.draw();
     }
 
-    move(){
-        if(!this.isMovable){
-            if (this.oldPositions.length > 0){
-                this.oldPositions.pop();
-                this.createTrail();
-            }
-        }else {
-            if((this.position.x > CanvasManager.canvas.width || this.position.x < 0 || this.position.y > CanvasManager.canvas.height || this.position.y < 0 ) || this.ttl>=this.maxttl-this.trailLength){
+    move() {
+        if (this.isMovable) {
+            if ((this.position.x > CanvasManager.canvas.width || this.position.x < 0 || this.position.y > CanvasManager.canvas.height || this.position.y < 0) || this.ttl >= this.maxttl) {
                 this.isMovable = false;
-                this.createTrail();
-            }
-            else {
+            } else {
                 this.goAlongVector();
             }
         }
     }
 
-
-    tickTTL(){
-        this.ttl+=1;
-        return ((((this.ttl<this.maxttl) || this.oldPositions.length==0)));
+    goAlongVector() {
+        let direction = VectorGrid.getVecteur(this.position.x, this.position.y);
+        this.limitSpeed(direction);
+        this.position.x += direction.x;
+        this.position.y += direction.y;
     }
 
-    limitSpeed(vector){
+    limitSpeed(vector) {
         const speed = Math.sqrt(vector.x ** 2 + vector.y ** 2);
         if (speed > this.maxSpeed) {
             vector.x = (vector.x / speed) * this.maxSpeed;
             vector.y = (vector.y / speed) * this.maxSpeed;
         }
     }
-
-    goAlongVector() {
-        let direction = VectorGrid.getVecteur(this.position.x, this.position.y);
-
-        this.updateOldPositions();
-
-        this.limitSpeed(direction);
-
-        this.position.x += direction.x;
-        this.position.y += direction.y;
-
-        this.createTrail();
-    }
-
-
-    updateOldPositions(){
-        if (this.oldPositions.length < this.trailLength){
-            let x = this.position.x;
-            let y = this.position.y;
-            this.oldPositions.unshift({x, y});
-        }else{
-            let x = this.position.x;
-            let y = this.position.y;
-            this.oldPositions.unshift({x, y});
-            this.oldPositions.pop(); // Supprime le dernier élément du tableau pour maintenir la longueur
-        }
-    }
-
-    createTrail(){
-        for (let i = 0; i < this.oldPositions.length; i++) {
-            const size = 1 - (i + 1) / this.oldPositions.length; // change petit a petit la taille
-            CanvasManager.context.fillStyle = this.color;
-            CanvasManager.context.beginPath();
-            CanvasManager.context.arc(this.oldPositions[i].x, this.oldPositions[i].y, this.radius * size, 0, Math.PI * 2, true);
-            CanvasManager.context.closePath();
-            CanvasManager.context.fill();
-        }
-    }
-
-
-
 }
