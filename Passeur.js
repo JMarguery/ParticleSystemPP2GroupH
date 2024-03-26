@@ -34,6 +34,9 @@ class Passeur{
         this.updateInterval = 30;
     }
 
+    static cleanPassArray(){
+        this.passArray = [];
+    }
 
     static pushPriorityArray(instance){
         this.priorityArray.push(instance);

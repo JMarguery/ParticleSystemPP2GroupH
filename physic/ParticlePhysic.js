@@ -16,6 +16,7 @@ Velocity : Dictionnaire {x,y}, vélocité de la particule
 maxTTL : TTL maximum de la particule
 ttl : nombre de cycle effectué
 gravity : Gravité a appliqué a la particule, on ajoute la valeur a velocity.y à chaque cycle
+isMovable : Peut être bougé
 
 ___________________________________________________________
 
