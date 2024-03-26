@@ -34,7 +34,7 @@ const spawnPointLimit = {
 
 
 function animate() {
-    CanvasManager.context.fillStyle = 'rgba(255, 255, 255, 0.001)'; // Example for a noticeable trail
+    CanvasManager.context.fillStyle = 'rgba(255, 255, 255, 0.05)';
     CanvasManager.context.fillRect(0, 0, CanvasManager.canvas.width, CanvasManager.canvas.height);
 
     Passeur.pass();
@@ -46,33 +46,23 @@ function animate() {
 animate();
 
 
-/*
-
-// On met a jour toutes les particules toute les 30ms
-let intervalDic = {
-    t: 30,
-    fun: function() {
-        Passeur.pass();
-    }
-};
-let intervalRendu = setInterval(intervalDic.fun, intervalDic.t);
- */
-// On fait spawn 1 particles toutes les 0.1 secondes
 let spawnDir = {
     t: 100,
     fun: function() {
-        let spawnPointRandom = {
-            x: getRandomInt(spawnPointLimit.x.min, spawnPointLimit.x.max),
-            y: getRandomInt(spawnPointLimit.y.min, spawnPointLimit.y.max)
-        };
-        new ParticleWindMap(
-            getRandomRGBA(),
-            3,
-            spawnPointRandom.x,
-            spawnPointRandom.y,
-            getRandomInt(50, 100),
-            getRandomInt(1, 2),
-        ).instantiate();
+        for (let i = 0; i < 10; i++) {
+            let spawnPointRandom = {
+                x: getRandomInt(spawnPointLimit.x.min, spawnPointLimit.x.max),
+                y: getRandomInt(spawnPointLimit.y.min, spawnPointLimit.y.max)
+            };
+            new ParticleWindMap(
+                getRandomRGBA(),
+                1,
+                spawnPointRandom.x,
+                spawnPointRandom.y,
+                getRandomInt(50, 100),
+                getRandomInt(1, 1),
+            ).instantiate();
+        }
     }
 };
 let spawnSpeed = setInterval(spawnDir.fun, spawnDir.t);

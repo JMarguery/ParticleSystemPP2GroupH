@@ -1,15 +1,22 @@
 var sliderSpawnSpeed = document.getElementById("spawnSpeed");
 
-// Update the current slider value (each time you drag the slider handle)
-sliderSpawnSpeed.oninput = function() {
-    clearInterval(spawnSpeed); // Clear the previous interval
-    spawnSpeed = setInterval(() => {
-        let spawnPointRandom = {
-            x: getRandomInt(spawnPointLimit.x.min, spawnPointLimit.x.max),
-            y: getRandomInt(spawnPointLimit.y.min, spawnPointLimit.y.max)
-        };
 
-        //ParticleWindMap.constructor(     color,     radius,     posX,     posY,     maxttl,     maxSpeed,     trailLength)
-        new ParticleWindMap(getRandomRGBA(),3,spawnPointRandom.x,spawnPointRandom.y,getRandomInt(100,100),getRandomInt(1,2),getRandomInt(50,100)).instantiate();
+sliderSpawnSpeed.oninput = function() {
+    clearInterval(spawnSpeed);
+    spawnSpeed = setInterval(() => {
+        for (let i = 0; i < 10; i++) {
+            let spawnPointRandom = {
+                x: getRandomInt(spawnPointLimit.x.min, spawnPointLimit.x.max),
+                y: getRandomInt(spawnPointLimit.y.min, spawnPointLimit.y.max)
+            };
+            new ParticleWindMap(
+                getRandomRGBA(),
+                1,
+                spawnPointRandom.x,
+                spawnPointRandom.y,
+                getRandomInt(50, 100),
+                getRandomInt(1, 1),
+            ).instantiate();
+        }
     }, this.value);
 }
