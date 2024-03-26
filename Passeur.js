@@ -59,27 +59,29 @@ class Passeur{
 
     //pass()
     // Efface le canvas puis appelle tickttl() sur chaque particule dans passArray, si elle est toujours en vie on la dessine, sinon on la supprime de passArray et on la met à null.
-    static pass(){
-        CanvasManager.context.fillStyle = CanvasManager.bgcolor;
-        CanvasManager.context.fillRect(0,0,CanvasManager.canvas.width,CanvasManager.canvas.height);
+    static pass() {
+        CanvasManager.context.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        CanvasManager.context.fillRect(0, 0, CanvasManager.canvas.width, CanvasManager.canvas.height);
+
         let to_be_removed = [];
         for(let j of this.priorityArray){
             j.draw();
         }
         for(let j of this.passArray){
-            let instance = j;  
+            let instance = j;
             if (instance.tickttl()){
                 instance.draw();
-        }else{
-            to_be_removed.push(instance);
+            }else{
+                to_be_removed.push(instance);
+            }
         }
-        }
-        if (to_be_removed.length!==0){
+        if (to_be_removed.length!=0){
             for (let k of to_be_removed){
                 this.removePassArray(k);
             }
             to_be_removed = [];
         }
     }
+
     
 }
