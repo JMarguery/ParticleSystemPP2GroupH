@@ -47,82 +47,86 @@ ___________________________________________________________
 */
 
 class VectorGrid {
-    static resolution;
     static cols;
     static rows;
     static vecteurs;
-    static vecteurList;
+    static maxWindSpeed;
 
-    // Initialize the grid statically
-    static create(resolution, width, height) {
-        this.resolution = resolution;
-        this.cols = Math.floor(width / resolution);
-        this.rows = Math.floor(height / resolution);
+
+    static create(data) {
+        this.cols = data[0].header.nx;
+        this.rows = data[0].header.ny;
+
+
         this.vecteurs = new Array(this.cols);
-        this.vecteurList = [];
+
+        let max = Math.sqrt(data[0].data[0] **2 + data[1].data[1]** 2);
+
         for (let i = 0; i < this.cols; i++) {
             this.vecteurs[i] = new Array(this.rows);
         }
 
+        for (let i = 0; i < this.cols * this.rows; i++) {
 
-        let centerX = this.cols / 2;
-        let centerY = this.rows / 2;
+            let columnIndex = i % this.cols;
+            let rowIndex = Math.floor(i / this.cols);
 
-        // créer un pattern ou les particules tournent autour du centre du tableau
-        for (let i = 0; i < this.cols; i++) {
-            for (let j = 0; j < this.rows; j++) {
-                let dirX = i - centerX;
-                let dirY = j - centerY;
+            const u = data[0].data[i]; //  (est-ouest)
+            const v = data[1].data[i]; //  (nord-sud)
 
-                const angle = Math.atan2(dirY, dirX) + Math.PI / 2;
-                const vectorX = Math.cos(angle);
-                const vectorY = Math.sin(angle);
+            let maxCourant = Math.sqrt(u**2 + v** 2);
 
-                this.vecteurs[i][j] = {
-                    x: vectorX,
-                    y: vectorY,
-                };
-                this.vecteurList.push([i * this.resolution + this.resolution / 2,j * this.resolution + this.resolution / 2,this.vecteurs[i][j]])
+            if (maxCourant > max){
+                max = maxCourant;
             }
+
+            this.vecteurs[columnIndex][rowIndex] = {x: u, y: v};
         }
+        this.maxWindSpeed = max;
 
     }
 
-    static updateVectorList(){
-        this.vecteurList = [];
-        for (let i=0;i< this.cols;i++){
-            for (let j=0;j<this.rows;j++){
-            // Calcul des coordonnées du point de départ pour le vecteur
-            let x = i * this.resolution + this.resolution / 2; // Centre du carré de la grille
-            let y = j * this.resolution + this.resolution / 2; // Centre du carré de la grille
-            let vecteur = this.vecteurs[i][j];
-            this.vecteurList.push([x,y,vecteur]);
-            // Dessin du vecteur à partir de cette position
-            }
-        }
-    }
 
     static getVecteur(coordX, coordY) {
-        const col = Math.floor(coordX / this.resolution);
-        const row = Math.floor(coordY / this.resolution);
-        return this.vecteurs[col][row];
+
+        let long = Math.floor((coordX / CanvasManager.canvas.width )* this.cols);
+        let lat = Math.floor((coordY / CanvasManager.canvas.height )*  this.rows);
+
+
+        return this.vecteurs[long][lat];
     }
 
 
-    static draw(){
-        for (let ar of this.vecteurList){
-            this.drawVector(ar[0],ar[1],ar[2]);
-        }
+    static getVecteurWithInterpolation(coordX, coordY) {
+        const centerX = this.cols / 2;
+
+        const x = ((coordX / CanvasManager.canvas.width) * this.cols + centerX) % this.cols;
+        const y = (coordY / CanvasManager.canvas.height) * this.rows;
+
+        const x0 = Math.floor(x);
+        const x1 = (x0 + 1) % this.cols;
+        const y0 = Math.floor(y);
+        const y1 = Math.min(y0 + 1, this.rows - 1);
+
+        const vectorBottomLeft = this.vecteurs[x0][y0];
+        const vectorBottomRight = this.vecteurs[x1][y0];
+        const vectorTopLeft = this.vecteurs[x0][y1];
+        const vectorTopRight = this.vecteurs[x1][y1];
+
+        const fx1 = x - x0;
+        const fx0 = 1 - fx1;
+        const fy1 = y - y0;
+        const fy0 = 1 - fy1;
+
+        const interpolatedX = vectorBottomLeft.x * fx0 * fy0 + vectorBottomRight.x * fx1 * fy0 +
+            vectorTopLeft.x * fx0 * fy1 + vectorTopRight.x * fx1 * fy1;
+
+        const interpolatedY = vectorBottomLeft.y * fx0 * fy0 + vectorBottomRight.y * fx1 * fy0 +
+            vectorTopLeft.y * fx0 * fy1 + vectorTopRight.y * fx1 * fy1;
+
+        return { x: interpolatedX, y: interpolatedY };
     }
 
-
-    static drawVector(x, y, vector) {
-        CanvasManager.context.beginPath();
-        CanvasManager.context.moveTo(x, y);
-        const scaleFactor = this.resolution / 2;
-        CanvasManager.context.lineTo(x + vector.x * scaleFactor, y + vector.y * scaleFactor);
-        CanvasManager.context.stroke();
-    }
 
 }
 

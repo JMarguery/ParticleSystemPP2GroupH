@@ -1,6 +1,4 @@
 // serait probablement préferable de faire une variable static a la class Particle mais pas trouvé et pas trop grave dans le cas d'application
-let particleAll=[];
-
 /*
 ___________________________________________________________
 
@@ -67,41 +65,62 @@ ___________________________________________________________
 */
 
 class ParticleWindMap extends Particle {
-    maxSpeed;
-    isMovable;
-    constructor(color, radius, posX, posY, maxttl, maxSpeed) {
+    spawnX;
+    spawnY;
+    drawParticle;
+
+    constructor(color, radius, posX, posY, maxttl) {
         super(color, radius, posX, posY, (maxttl*2));
-        this.maxSpeed = maxSpeed;
-        this.isMovable = true;
+        this.spawnX = posX;
+        this.spawnY = posY;
+        this.drawParticle = true;
     }
 
     draw() {
         this.move();
-        super.draw();
+        if (this.drawParticle){
+            super.draw();
+        }
+        this.drawParticle = true;
     }
 
     move() {
-        if (this.isMovable) {
-            if ((this.position.x > CanvasManager.canvas.width || this.position.x < 0 || this.position.y > CanvasManager.canvas.height || this.position.y < 0) || this.ttl >= this.maxttl) {
-                this.isMovable = false;
-            } else {
-                this.goAlongVector();
-            }
-        }
+        this.goAlongVector();
     }
 
     goAlongVector() {
-        let direction = VectorGrid.getVecteur(this.position.x, this.position.y);
+        if (this.position.x >= CanvasManager.canvas.width) {
+            this.position.x = 0;
+        } else if (this.position.x < 0) {
+            this.position.x = CanvasManager.canvas.width - 1;
+        }
+
+        if (this.position.y >= CanvasManager.canvas.height) {
+            this.position.y = 0;
+        } else if (this.position.y < 0) {
+            this.position.y = CanvasManager.canvas.height - 1;
+        }
+
+        let direction = VectorGrid.getVecteurWithInterpolation(this.position.x, this.position.y);
         this.limitSpeed(direction);
+        if (Math.abs(direction.x) < 0.05 && Math.abs(direction.y) < 0.05) {
+            this.drawParticle = false;
+        }
         this.position.x += direction.x;
         this.position.y += direction.y;
+
+
     }
 
     limitSpeed(vector) {
-        const speed = Math.sqrt(vector.x ** 2 + vector.y ** 2);
-        if (speed > this.maxSpeed) {
-            vector.x = (vector.x / speed) * this.maxSpeed;
-            vector.y = (vector.y / speed) * this.maxSpeed;
-        }
+        vector.x = (vector.x / VectorGrid.maxWindSpeed );
+        vector.y = (vector.y / VectorGrid.maxWindSpeed );
+    }
+
+    setPositionToSpawn(){
+        this.ttl = 0;
+        this.isMovable = true;
+        this.position.x = this.spawnX+Math.cos(getRandomFloat(0,7));
+        this.position.y = this.spawnY+Math.cos(getRandomFloat(0,7));
     }
 }
