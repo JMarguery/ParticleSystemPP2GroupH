@@ -42,6 +42,12 @@ document.getElementById('dureeDeVieMaxi').addEventListener('change', function() 
     ParticleSystem.updateParticleTtlMax(dureeDeVieMaxi);
 });
 
+document.getElementById('cacherParticulesLentes').addEventListener('change', function() {
+    cacherParticulesLentes = this.checked;
+    console.log(cacherParticulesLentes);
+    ParticleSystem.updateHideSlowParticles(cacherParticulesLentes);
+});
+
 
 
 

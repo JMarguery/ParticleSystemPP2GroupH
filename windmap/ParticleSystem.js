@@ -29,6 +29,7 @@ class ParticleSystem {
     static opacityParticles;
     static ttlMin;
     static ttlMax;
+    static hideSlowParticles
 
     static create(nb_particles, radiusParticles, opacityParticles, dureeDeVieMini, dureeDeVieMax ){
         this.particles = [];
@@ -45,6 +46,7 @@ class ParticleSystem {
         this.opacityParticles = opacityParticles;
         this.ttlMin = dureeDeVieMini;
         this.ttlMax = dureeDeVieMax;
+        this.hideSlowParticles = false;
     }
 
     static cleanParticlesArray(){
@@ -120,5 +122,9 @@ class ParticleSystem {
         for(let particle of this.particles){
             particle.radius = this.radiusParticles;
         }
+    }
+
+    static updateHideSlowParticles(cacherParticulesLentes) {
+        this.hideSlowParticles = cacherParticulesLentes;
     }
 }

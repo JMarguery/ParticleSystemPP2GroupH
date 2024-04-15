@@ -103,9 +103,14 @@ class ParticleWindMap extends Particle {
 
         let direction = VectorGrid.getVecteurWithInterpolation(this.position.x, this.position.y);
         this.limitSpeed(direction);
-        if (Math.abs(direction.x) < 0.05 && Math.abs(direction.y) < 0.05) {
-            this.drawParticle = false;
+
+        if(ParticleSystem.hideSlowParticles){
+            if (Math.abs(direction.x) < 0.05 && Math.abs(direction.y) < 0.05) {
+                this.drawParticle = false;
+            }
         }
+
+
         this.position.x += direction.x;
         this.position.y += direction.y;
 
