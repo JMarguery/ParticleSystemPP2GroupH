@@ -120,7 +120,7 @@ class ParticleWindMap extends Particle {
     setPositionToSpawn(){
         this.ttl = 0;
         this.isMovable = true;
-        this.position.x = this.spawnX+Math.cos(getRandomFloat(0,7));
-        this.position.y = this.spawnY+Math.cos(getRandomFloat(0,7));
+        this.position.x = this.spawnX;
+        this.position.y = this.spawnY;
     }
 }

@@ -1,101 +1,42 @@
-/*
-___________________________________________________________
-
-Class VectorGrid :
-
-Permet de créer un tableau de tableau, chaque case contenant un vecteur direction pour déplacer les particules, static pour être utilisé partout et on a 1 grille pour l'application
-___________________________________________________________
-
-Champs :
-
-___________________________________________________________
-
-Static fields :
-
-resolution : + la resolution est petite plus il y aura de vecteurs dans 1 ligne exemple : taille 500 avec resolution à 10 => 50 vecteurs par lignes si résolution à 1 = 500
-cols : nb de colonnes dans la grille
-rows : nb de lignes dans la grille
-vecteurs : grille de vecteurs
-vecteurList : Liste [x,y,vecteurs[i,j]] utilisé pour le draw
-___________________________________________________________
-
-Constructeur :
-VectorGrid (
-    float : résolution,
-    float : width,
-    float : height,
-)
-
-___________________________________________________________
-
-Methodes :
-
-___________________________________________________________
-
-Methodes static :
-
-create() : constructeur static pour créer un VectorGrid avec un pattern ou les vecteurs forment des cercles avec comme centre le centre du tableau
-
-getVecteur(coordX, coordY) : retourne le vecteur correspondant à la position x y passé en argument
-
-static drawVector(x, y, vector) : Dessiner un vecteur à partir d'un point (x, y) dans une direction spécifique (vecteur)
-
-static draw() : Dessine tous les vecteurs
-
-static updateVectorList() : Update la liste des vecteurs
-___________________________________________________________
-*/
-
 class VectorGrid {
     static cols;
     static rows;
     static vecteurs;
     static maxWindSpeed;
 
+    static index(x, y) {
+        return x + y * this.cols;
+    }
 
     static create(data) {
         this.cols = data[0].header.nx;
         this.rows = data[0].header.ny;
 
+        this.vecteurs = new Array(this.cols * this.rows);
 
-        this.vecteurs = new Array(this.cols);
-
-        let max = Math.sqrt(data[0].data[0] **2 + data[1].data[1]** 2);
-
-        for (let i = 0; i < this.cols; i++) {
-            this.vecteurs[i] = new Array(this.rows);
-        }
+        let max = 0;
 
         for (let i = 0; i < this.cols * this.rows; i++) {
+            const u = data[0].data[i];
+            const v = data[1].data[i];
 
-            let columnIndex = i % this.cols;
-            let rowIndex = Math.floor(i / this.cols);
-
-            const u = data[0].data[i]; //  (est-ouest)
-            const v = data[1].data[i]; //  (nord-sud)
-
-            let maxCourant = Math.sqrt(u**2 + v** 2);
-
-            if (maxCourant > max){
-                max = maxCourant;
+            let speed = Math.sqrt(u**2 + v**2);
+            if (speed > max) {
+                max = speed;
             }
 
-            this.vecteurs[columnIndex][rowIndex] = {x: u, y: v};
+            this.vecteurs[i] = { x: u, y: v };
         }
+
         this.maxWindSpeed = max;
-
     }
-
 
     static getVecteur(coordX, coordY) {
+        let col = Math.floor((coordX / CanvasManager.canvas.width) * this.cols);
+        let row = Math.floor((coordY / CanvasManager.canvas.height) * this.rows);
 
-        let long = Math.floor((coordX / CanvasManager.canvas.width )* this.cols);
-        let lat = Math.floor((coordY / CanvasManager.canvas.height )*  this.rows);
-
-
-        return this.vecteurs[long][lat];
+        return this.vecteurs[this.index(col, row)];
     }
-
 
     static getVecteurWithInterpolation(coordX, coordY) {
         const centerX = this.cols / 2;
@@ -108,10 +49,10 @@ class VectorGrid {
         const y0 = Math.floor(y);
         const y1 = Math.min(y0 + 1, this.rows - 1);
 
-        const vectorBottomLeft = this.vecteurs[x0][y0];
-        const vectorBottomRight = this.vecteurs[x1][y0];
-        const vectorTopLeft = this.vecteurs[x0][y1];
-        const vectorTopRight = this.vecteurs[x1][y1];
+        const vectorBottomLeft = this.vecteurs[this.index(x0, y0)];
+        const vectorBottomRight = this.vecteurs[this.index(x1, y0)];
+        const vectorTopLeft = this.vecteurs[this.index(x0, y1)];
+        const vectorTopRight = this.vecteurs[this.index(x1, y1)];
 
         const fx1 = x - x0;
         const fx0 = 1 - fx1;
@@ -126,7 +67,4 @@ class VectorGrid {
 
         return { x: interpolatedX, y: interpolatedY };
     }
-
-
 }
-
