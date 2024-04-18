@@ -40,12 +40,17 @@ class VectorGrid {
     }
 
 
-
     static getVecteurWithInterpolation(coordX, coordY) {
         const centerX = this.cols / 2;
 
-        const x = ((coordX / CanvasManager.canvas.width) * this.cols + centerX) % this.cols;
-        const y = (coordY / CanvasManager.canvas.height) * this.rows;
+        const coordXInVectorGrid = (coordX - CanvasManager.offsetX) / CanvasManager.zoomScale;
+        const coordYInVectorGrid = (coordY - CanvasManager.offsetY) / CanvasManager.zoomScale;
+
+        let x = ((coordXInVectorGrid/ CanvasManager.canvas.width) * this.cols + centerX) % this.cols;
+        let y = (coordYInVectorGrid / CanvasManager.canvas.height) * this.rows;
+
+        x = (x + this.cols) % this.cols;
+        y = Math.max(0, Math.min(this.rows - 1, y));
 
         const x0 = Math.floor(x);
         const x1 = (x0 + 1) % this.cols;
@@ -64,13 +69,11 @@ class VectorGrid {
 
         const interpolatedX = vectorBottomLeft.x * fx0 * fy0 + vectorBottomRight.x * fx1 * fy0 +
             vectorTopLeft.x * fx0 * fy1 + vectorTopRight.x * fx1 * fy1;
-
         const interpolatedY = vectorBottomLeft.y * fx0 * fy0 + vectorBottomRight.y * fx1 * fy0 +
             vectorTopLeft.y * fx0 * fy1 + vectorTopRight.y * fx1 * fy1;
 
         return { x: interpolatedX, y: interpolatedY };
     }
-
 
 
 

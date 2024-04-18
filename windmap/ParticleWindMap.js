@@ -89,16 +89,17 @@ class ParticleWindMap extends Particle {
     }
 
     goAlongVector() {
+        //modifier pour prendre les coord visuelles ?
         if (this.position.x >= CanvasManager.canvas.width) {
-            this.position.x = 0;
+            this.position.x = this.spawnX;
         } else if (this.position.x < 0) {
-            this.position.x = CanvasManager.canvas.width - 1;
+            this.position.x = this.spawnX;
         }
 
         if (this.position.y >= CanvasManager.canvas.height) {
-            this.position.y = 0;
+            this.position.y = this.spawnY;
         } else if (this.position.y < 0) {
-            this.position.y = CanvasManager.canvas.height - 1;
+            this.position.y = this.spawnY;
         }
 
         let direction = VectorGrid.getVecteurWithInterpolation(this.position.x, this.position.y);

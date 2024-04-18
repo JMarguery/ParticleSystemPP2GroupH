@@ -7,7 +7,7 @@ class Simulation {
     static opacityParticles = 1;
     static dureeDeVieMini = 30;
     static dureeDeVieMaxi = 50;
-    static fps = 30;
+    static fps = 300;
     static lastTime = 0;
     static interval = 1000 / this.fps;
     static minMovementToDraw = 0.05;
@@ -40,11 +40,10 @@ class Simulation {
 
     static animate(currentTime) {
         requestAnimationFrame(Simulation.animate);
-        if(Simulation.pause){
-            return;
-        }
         if (currentTime - Simulation.lastTime > Simulation.interval) {
-
+            if(Simulation.pause){
+                return;
+            }
             CanvasManager.context.globalAlpha = CanvasManager.attenuationSpeed;
             const sourceX = -CanvasManager.offsetX / CanvasManager.zoomScale;
             const sourceY = -CanvasManager.offsetY / CanvasManager.zoomScale;

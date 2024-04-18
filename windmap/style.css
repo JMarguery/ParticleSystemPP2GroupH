@@ -86,6 +86,7 @@ button:hover {
 }
 
 .simulation{
-    transform-origin: top left;
+    margin-left: 50px;
+    margin-top: 10px;
 }
 

@@ -64,11 +64,7 @@ class ParticleSystem {
                     particle.setPositionToSpawn();
                 }
                 particle.draw();
-            } else {
-                console.error('Incorrect particle type', particle);
-                // Gérer ou ignorer les particules incorrectes
             }
-
         }
     }
 
@@ -135,13 +131,19 @@ class ParticleSystem {
     }
 
     static updateParticlePositions() {
-        console.log(CanvasManager.offsetX);
-        console.log(CanvasManager.offsetY);
+        const visibleArea = CanvasManager.getVisibleArea();
+
         for (let particle of this.particles) {
-            particle.posX = (particle.posX + CanvasManager.offsetX) / CanvasManager.zoomScale;
-            particle.posY = (particle.posY + CanvasManager.offsetY) / CanvasManager.zoomScale;
-            particle.spawnX = (particle.spawnX + CanvasManager.offsetX) / CanvasManager.zoomScale;
-            particle.spawnY = (particle.spawnY + CanvasManager.offsetY) / CanvasManager.zoomScale;
+            let x = getRandomFloat(visibleArea.topLeftCorner.x, visibleArea.bottomRightCorner.x);
+            let y = getRandomFloat(visibleArea.topLeftCorner.y, visibleArea.bottomRightCorner.y);
+
+            x = (x * CanvasManager.zoomScale) + CanvasManager.offsetX;
+            y = (y * CanvasManager.zoomScale) + CanvasManager.offsetY;
+
+            particle.posX = x
+            particle.posY = y
+            particle.spawnX = x ;
+            particle.spawnY = y ;
         }
     }
 
