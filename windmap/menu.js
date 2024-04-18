@@ -11,6 +11,24 @@ function toggleMenu() {
     }
 }
 
+function unzoom() {
+    CanvasManager.zoomScale = 1;
+    CanvasManager.offsetX = 0;
+    CanvasManager.offsetY = 0;
+    CanvasManager.resetBackground();
+    ParticleSystem.updateParticlePositions();
+}
+
+function pause(){
+    const pauseButton = document.getElementById('pauseButton');
+    Simulation.pauseButton = !Simulation.pauseButton;
+    if(Simulation.pauseButton){
+        pauseButton.innerText="|>";
+    }else{
+        pauseButton.innerText="||";
+    }
+}
+
 
 document.getElementById('nb_particules').addEventListener('change', function() {
     const nb_particules = parseInt(this.value, 10);

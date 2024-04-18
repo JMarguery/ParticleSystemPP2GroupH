@@ -12,6 +12,7 @@ class Simulation {
     static interval = 1000 / this.fps;
     static minMovementToDraw = 0.05;
     static pause;
+    static pauseButton =false;
 
 
     static create(data) {
@@ -41,6 +42,9 @@ class Simulation {
     static animate(currentTime) {
         requestAnimationFrame(Simulation.animate);
         if (currentTime - Simulation.lastTime > Simulation.interval) {
+            if(Simulation.pauseButton){
+                return;
+            }
             if(Simulation.pause){
                 return;
             }

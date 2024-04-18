@@ -1,4 +1,4 @@
-import jsonData from './data/vents025.json' with { type: 'json' };
+import jsonData from './data/test_1deg_1204deg.json' with { type: 'json' };
 export const data = jsonData;
 
 Simulation.create(data);
