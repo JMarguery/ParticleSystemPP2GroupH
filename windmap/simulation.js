@@ -15,7 +15,7 @@ class Simulation {
 
 
     static create(data) {
-        this.width = window.innerWidth*0.9;
+        this.width = window.innerWidth-75;
         this.height = this.width*0.5;
         if(this.width < 360){
             this.width = 360;
