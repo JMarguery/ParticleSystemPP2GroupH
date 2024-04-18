@@ -3,11 +3,11 @@ class Simulation {
     static height;
     static nb_particules = 5000;
     static vitesseAttenuationTrace = 0.05;
-    static radiusParticles = 1;
-    static opacityParticles = 1;
+    static radiusParticles = 0.5;
+    static opacityParticles = 0.2;
     static dureeDeVieMini = 30;
     static dureeDeVieMaxi = 50;
-    static fps = 300;
+    static fps = 30;
     static lastTime = 0;
     static interval = 1000 / this.fps;
     static minMovementToDraw = 0.05;
