@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
-    margin: 5;
-    padding: 5;
+    margin: 0;
+    padding: 0;
 }
 
 .burger-menu {
@@ -84,3 +84,8 @@ button:hover {
 .input-group input {
     margin-top: 5px;
 }
+
+.simulation{
+    transform-origin: top left;
+}
+

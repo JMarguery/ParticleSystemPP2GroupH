@@ -13,41 +13,49 @@ function toggleMenu() {
 
 
 document.getElementById('nb_particules').addEventListener('change', function() {
-    nb_particules = parseInt(this.value, 10);
+    const nb_particules = parseInt(this.value, 10);
     ParticleSystem.updateParticleCount(nb_particules);
 });
 
 document.getElementById('vitesseAttenuationTrace').addEventListener('change', function() {
-    vitesseAttenuationTrace = parseFloat(this.value);
+    const vitesseAttenuationTrace = parseFloat(this.value);
     CanvasManager.updateAttenuationSpeed(vitesseAttenuationTrace);
 });
 
 document.getElementById('radiusParticles').addEventListener('change', function() {
-    radiusParticles = parseFloat(this.value);
+    const radiusParticles = parseFloat(this.value);
     ParticleSystem.updateParticleRadius(radiusParticles);
 });
 
 document.getElementById('opacityParticles').addEventListener('change', function() {
-    opacityParticles = parseFloat(this.value);
+    const opacityParticles = parseFloat(this.value);
     ParticleSystem.updateParticleOpacity(opacityParticles);
 });
 
 document.getElementById('dureeDeVieMini').addEventListener('change', function() {
-    dureeDeVieMini = parseInt(this.value, 10);
+    const dureeDeVieMini = parseInt(this.value, 10);
     ParticleSystem.updateParticleTtlMini(dureeDeVieMini);
 });
 
 document.getElementById('dureeDeVieMaxi').addEventListener('change', function() {
-    dureeDeVieMaxi = parseInt(this.value, 10);
+    const dureeDeVieMaxi = parseInt(this.value, 10);
     ParticleSystem.updateParticleTtlMax(dureeDeVieMaxi);
 });
 
+document.getElementById('fps').addEventListener('change', function() {
+    const fps = parseInt(this.value, 10);
+    Simulation.adjustAnimationRate(fps);
+});
+
 document.getElementById('cacherParticulesLentes').addEventListener('change', function() {
-    cacherParticulesLentes = this.checked;
-    console.log(cacherParticulesLentes);
+    const cacherParticulesLentes = this.checked;
     ParticleSystem.updateHideSlowParticles(cacherParticulesLentes);
 });
 
-
+document.getElementById('deplacementMinimumPourAfficher').addEventListener('change', function() {
+    const minMovementToDraw = parseFloat(this.value);
+    console.log(minMovementToDraw);
+    ParticleSystem.updateMinMovementToDrawn(minMovementToDraw);
+});
 
 

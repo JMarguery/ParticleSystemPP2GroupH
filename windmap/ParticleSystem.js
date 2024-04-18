@@ -29,9 +29,10 @@ class ParticleSystem {
     static opacityParticles;
     static ttlMin;
     static ttlMax;
-    static hideSlowParticles
+    static hideSlowParticles;
+    static minMovementToDraw;
 
-    static create(nb_particles, radiusParticles, opacityParticles, dureeDeVieMini, dureeDeVieMax ){
+    static create(nb_particles, radiusParticles, opacityParticles, dureeDeVieMini, dureeDeVieMax, minSpeedToDraw ){
         this.particles = [];
         for (let i = 0; i < nb_particles; i++) {
             this.particles.push(new ParticleWindMap(
@@ -47,6 +48,7 @@ class ParticleSystem {
         this.ttlMin = dureeDeVieMini;
         this.ttlMax = dureeDeVieMax;
         this.hideSlowParticles = false;
+        this.minMovementToDraw = minSpeedToDraw;
     }
 
     static cleanParticlesArray(){
@@ -127,4 +129,20 @@ class ParticleSystem {
     static updateHideSlowParticles(cacherParticulesLentes) {
         this.hideSlowParticles = cacherParticulesLentes;
     }
+
+    static updateMinMovementToDrawn(cacherParticulesLentes) {
+        this.minMovementToDraw = cacherParticulesLentes;
+    }
+
+    static updateParticlePositions() {
+        console.log(CanvasManager.offsetX);
+        console.log(CanvasManager.offsetY);
+        for (let particle of this.particles) {
+            particle.posX = (particle.posX + CanvasManager.offsetX) / CanvasManager.zoomScale;
+            particle.posY = (particle.posY + CanvasManager.offsetY) / CanvasManager.zoomScale;
+            particle.spawnX = (particle.spawnX + CanvasManager.offsetX) / CanvasManager.zoomScale;
+            particle.spawnY = (particle.spawnY + CanvasManager.offsetY) / CanvasManager.zoomScale;
+        }
+    }
+
 }

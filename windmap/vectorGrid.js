@@ -25,6 +25,7 @@ class VectorGrid {
                 max = speed;
             }
 
+
             this.vecteurs[i] = { x: u, y: v };
         }
 
@@ -37,6 +38,8 @@ class VectorGrid {
 
         return this.vecteurs[this.index(col, row)];
     }
+
+
 
     static getVecteurWithInterpolation(coordX, coordY) {
         const centerX = this.cols / 2;
@@ -67,4 +70,9 @@ class VectorGrid {
 
         return { x: interpolatedX, y: interpolatedY };
     }
+
+
+
+
+
 }

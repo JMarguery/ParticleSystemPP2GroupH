@@ -105,16 +105,12 @@ class ParticleWindMap extends Particle {
         this.limitSpeed(direction);
 
         if(ParticleSystem.hideSlowParticles){
-            if (Math.abs(direction.x) < 0.05 && Math.abs(direction.y) < 0.05) {
+            if (Math.abs(direction.x) < ParticleSystem.minMovementToDraw && Math.abs(direction.y) < ParticleSystem.minMovementToDraw) {
                 this.drawParticle = false;
             }
         }
-
-
         this.position.x += direction.x;
         this.position.y += direction.y;
-
-
     }
 
     limitSpeed(vector) {
