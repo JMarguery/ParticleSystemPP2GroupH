@@ -30,7 +30,6 @@ class CanvasManager {
     }
 
     static applyTransformations() {
-        CanvasManager.getVisibleArea();
         ParticleSystem.updateParticlePositions();
         CanvasManager.resetBackground();
     }
@@ -106,7 +105,6 @@ class CanvasManager {
 
     static mouseMove(event) {
         if (CanvasManager.isDragging) {
-
             const dx = event.clientX - CanvasManager.lastX;
             const dy = event.clientY - CanvasManager.lastY;
 
@@ -115,6 +113,7 @@ class CanvasManager {
 
             CanvasManager.lastX = event.clientX;
             CanvasManager.lastY = event.clientY;
+
             CanvasManager.applyTransformations();
         }
     }
@@ -136,22 +135,20 @@ class CanvasManager {
         }
 
         if(this.offsetX < 0) {
-            topLeftCorner.x = -this.offsetX/this.zoomScale; // ok
+            topLeftCorner.x = -this.offsetX/this.zoomScale;
 
         }
-        bottomRightCorner.x = Math.min((this.canvas.width-this.offsetX)/this.zoomScale, this.canvas.width); // ok
+        bottomRightCorner.x = Math.min((this.canvas.width-this.offsetX)/this.zoomScale, this.canvas.width);
         if(this.offsetY < 0) {
-            topLeftCorner.y = -this.offsetY/this.zoomScale; // ok
+            topLeftCorner.y = -this.offsetY/this.zoomScale;
         }
         bottomRightCorner.y = Math.min((this.canvas.height-this.offsetY)/this.zoomScale, this.canvas.height);
 
 
-        const visibleArea = {
+        return {
             topLeftCorner,
             bottomRightCorner
         }
-
-        return visibleArea
     }
 
 }

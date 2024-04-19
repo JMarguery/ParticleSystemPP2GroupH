@@ -32,14 +32,6 @@ class VectorGrid {
         this.maxWindSpeed = max;
     }
 
-    static getVecteur(coordX, coordY) {
-        let col = Math.floor((coordX / CanvasManager.canvas.width) * this.cols);
-        let row = Math.floor((coordY / CanvasManager.canvas.height) * this.rows);
-
-        return this.vecteurs[this.index(col, row)];
-    }
-
-
     static getVecteurWithInterpolation(coordX, coordY) {
         const centerX = this.cols / 2;
 

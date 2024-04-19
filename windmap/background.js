@@ -9,6 +9,7 @@ class BackgroundCanvas {
 
         this.initializeColorLookup(VectorGrid.maxWindSpeed);
         this.drawBackgroundImage();
+        this.drawCountryBorders();
     }
 
     static initializeColorLookup(maxWindSpeed) {
@@ -33,5 +34,30 @@ class BackgroundCanvas {
                 this.offscreenContext.fillRect(x, y, 1 , 1);
             }
         }
+    }
+
+    static drawCountryBorders(){
+        const scale = this.offscreenCanvas.width / (2 * Math.PI );
+
+        // Define a geographical projection
+        const projection = d3.geoEquirectangular().translate([this.offscreenCanvas.width / 2, this.offscreenCanvas.height / 2]).scale(scale);
+
+        // Define a generator for the paths using the canvas context
+        const pathGenerator = d3.geoPath().projection(projection).context(this.offscreenContext);
+
+
+
+        // Load GeoJSON data and draw it
+        d3.json("./data/custom.geo.json").then((geojsonData) => {
+            this.offscreenContext.strokeStyle = "white"; // Border color
+            this.offscreenContext.lineWidth = 0.5; // Border width
+
+            // Draw each country
+            geojsonData.features.forEach(feature => {
+                this.offscreenContext.beginPath();
+                pathGenerator(feature);
+                this.offscreenContext.stroke();
+            });
+        });
     }
 }
