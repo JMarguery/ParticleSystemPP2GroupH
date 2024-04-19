@@ -49,7 +49,7 @@ class BackgroundCanvas {
 
         // Load GeoJSON data and draw it
         d3.json("./data/custom.geo.json").then((geojsonData) => {
-            this.offscreenContext.strokeStyle = "white"; // Border color
+            this.offscreenContext.strokeStyle = "black"; // Border color
             this.offscreenContext.lineWidth = 0.5; // Border width
 
             // Draw each country
