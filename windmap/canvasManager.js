@@ -37,11 +37,14 @@ class CanvasManager {
     static resetBackground() {
         CanvasManager.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         CanvasManager.context.globalAlpha = 1.0;
+        CanvasManager.drawMovedBackground();
+    }
+
+    static drawMovedBackground(){
         const sourceX = -CanvasManager.offsetX / CanvasManager.zoomScale;
         const sourceY = -CanvasManager.offsetY / CanvasManager.zoomScale;
         const sourceWidth = CanvasManager.canvas.width / CanvasManager.zoomScale;
         const sourceHeight = CanvasManager.canvas.height / CanvasManager.zoomScale;
-
         CanvasManager.context.drawImage(
             BackgroundCanvas.offscreenCanvas,  // Image source
             sourceX, sourceY,                 // Coordonnées du coin supérieur gauche du sous-rectangle de la source
@@ -49,6 +52,12 @@ class CanvasManager {
             0, 0,                             // Coordonnées du coin supérieur gauche de la destination
             CanvasManager.canvas.width, CanvasManager.canvas.height  // Largeur et hauteur de la destination
         );
+    }
+
+    static drawAttenuatedBackground(){
+        CanvasManager.context.globalAlpha = CanvasManager.attenuationSpeed;
+        CanvasManager.drawMovedBackground();
+        CanvasManager.context.globalAlpha = 1.0;
     }
 
 

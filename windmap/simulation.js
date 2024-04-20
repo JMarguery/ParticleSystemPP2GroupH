@@ -7,12 +7,10 @@ class Simulation {
     static opacityParticles = 0.2;
     static dureeDeVieMini = 30;
     static dureeDeVieMaxi = 50;
-    static fps = 30;
-    static lastTime = 0;
-    static interval = 1000 / this.fps;
     static minMovementToDraw = 0.05;
     static pause;
     static pauseButton =false;
+    static speedFactor = 1;
 
 
     static create(data) {
@@ -39,40 +37,23 @@ class Simulation {
         Simulation.animate(performance.now());
     }
 
-    static animate(currentTime) {
+    static animate(time) {
         requestAnimationFrame(Simulation.animate);
-        if (currentTime - Simulation.lastTime > Simulation.interval) {
-            if(Simulation.pauseButton){
-                return;
-            }
-            if(Simulation.pause){
-                return;
-            }
-            CanvasManager.context.globalAlpha = CanvasManager.attenuationSpeed;
-            const sourceX = -CanvasManager.offsetX / CanvasManager.zoomScale;
-            const sourceY = -CanvasManager.offsetY / CanvasManager.zoomScale;
-            const sourceWidth = CanvasManager.canvas.width / CanvasManager.zoomScale;
-            const sourceHeight = CanvasManager.canvas.height / CanvasManager.zoomScale;
-            CanvasManager.context.drawImage(
-                BackgroundCanvas.offscreenCanvas,  // Image source
-                sourceX, sourceY,                 // Coordonnées du coin supérieur gauche du sous-rectangle de la source
-                sourceWidth, sourceHeight,        // Largeur et hauteur du sous-rectangle de la source
-                0, 0,                             // Coordonnées du coin supérieur gauche de la destination
-                CanvasManager.canvas.width, CanvasManager.canvas.height  // Largeur et hauteur de la destination
-            );
-            CanvasManager.context.globalAlpha = 1.0;
-
-            ParticleSystem.pass();
-
-            Simulation.lastTime = currentTime;
-
+        if(Simulation.pauseButton){
+            return;
         }
+        if(Simulation.pause){
+            return;
+        }
+        CanvasManager.drawAttenuatedBackground();
+
+        ParticleSystem.pass();
+        }
+
+    static updateSpeedFactor(speedFactor) {
+        this.speedFactor = speedFactor;
     }
 
-    static adjustAnimationRate(newFps) {
-        this.fps = newFps;
-        this.interval = 1000 / this.fps;
 
-        requestAnimationFrame(this.animate);
-    }
+
 }

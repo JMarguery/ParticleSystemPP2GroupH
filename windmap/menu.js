@@ -60,10 +60,6 @@ document.getElementById('dureeDeVieMaxi').addEventListener('change', function() 
     ParticleSystem.updateParticleTtlMax(dureeDeVieMaxi);
 });
 
-document.getElementById('fps').addEventListener('change', function() {
-    const fps = parseInt(this.value, 10);
-    Simulation.adjustAnimationRate(fps);
-});
 
 document.getElementById('cacherParticulesLentes').addEventListener('change', function() {
     const cacherParticulesLentes = this.checked;
@@ -72,8 +68,13 @@ document.getElementById('cacherParticulesLentes').addEventListener('change', fun
 
 document.getElementById('deplacementMinimumPourAfficher').addEventListener('change', function() {
     const minMovementToDraw = parseFloat(this.value);
-    console.log(minMovementToDraw);
     ParticleSystem.updateMinMovementToDrawn(minMovementToDraw);
+});
+
+document.getElementById('speedFactor').addEventListener('change', function() {
+    const speedFactor = parseFloat(this.value);
+    console.log(speedFactor);
+    Simulation.updateSpeedFactor(speedFactor);
 });
 
 

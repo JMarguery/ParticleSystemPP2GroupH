@@ -106,7 +106,7 @@ class ParticleWindMap extends Particle {
         this.limitSpeed(direction);
 
         if(ParticleSystem.hideSlowParticles){
-            if (Math.abs(direction.x) < ParticleSystem.minMovementToDraw && Math.abs(direction.y) < ParticleSystem.minMovementToDraw) {
+            if (Math.abs(direction.x*Simulation.speedFactor) < ParticleSystem.minMovementToDraw && Math.abs(direction.y*Simulation.speedFactor) < ParticleSystem.minMovementToDraw) {
                 this.drawParticle = false;
             }
         }
@@ -115,8 +115,8 @@ class ParticleWindMap extends Particle {
     }
 
     limitSpeed(vector) {
-        vector.x = (vector.x / VectorGrid.maxWindSpeed );
-        vector.y = (vector.y / VectorGrid.maxWindSpeed );
+        vector.x = (vector.x / VectorGrid.maxWindSpeed*Simulation.speedFactor);
+        vector.y = (vector.y / VectorGrid.maxWindSpeed*Simulation.speedFactor);
     }
 
     setPositionToSpawn(){
