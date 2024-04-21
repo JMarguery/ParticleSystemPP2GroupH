@@ -137,9 +137,6 @@ class CanvasManager {
                 if ( mouseY > CanvasManager.visibleTopLeftCorner.y && mouseY < CanvasManager.visibleBottomRightCorner.y ){
                     const vecteurVent = VectorGrid.getVecteurWithInterpolation(mouseX, mouseY);
                     CanvasManager.drawCross(mouseX,mouseY)
-                    console.log("X dans le cavans , : ",mouseX);
-                    console.log("Y dans le cavans , : ",mouseY);
-                    console.log("vitesse du vent a cet endroit :", Math.sqrt(vecteurVent.x**2 + vecteurVent.y**2));
                     displaySpeedOnScale( Math.sqrt(vecteurVent.x**2 + vecteurVent.y**2));
                 }
             }

@@ -14,7 +14,7 @@ class Simulation {
     static lastFrameTime = 0;
     static fpsMin = 10;
     static lowFpsCount = 0;
-    static maxLowFps = 10;
+    static maxLowFps = 30;
 
 
     static create(data) {
@@ -55,8 +55,10 @@ class Simulation {
         if (fps < Simulation.fpsMin) {
             Simulation.lowFpsCount++;
             if (Simulation.lowFpsCount >= Simulation.maxLowFps) {
+                /*
                 console.log(`Fps en dessous de ${Simulation.fpsMin} pendant ${Simulation.lowFpsCount} frames`);
                 console.log(`Le nombre de particules a été divisé par 1/4`);
+                 */
                 Simulation.nb_particules = Math.max(1000, Math.floor(ParticleSystem.particles.length / 1.25));
                 ParticleSystem.updateParticleCount(Simulation.nb_particules);
                 updateInputNbParticles(Simulation.nb_particules);
