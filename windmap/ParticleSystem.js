@@ -1,27 +1,3 @@
-/* 
-___________________________________________________________
-
-
-Class Passeur :
-
-Contient une liste de toutes les particules a mettre à jour et les supprime/met à jour selon 
-
-___________________________________________________________
-
-Champs :
-
- priorityArray : Array a dessiner en priorité (= dessous).
- passArray : Array de Particle pour la mise à jour du canvas
-___________________________________________________________
-
-Constructeur :
-
-Passeur(
-    Array<Particle> passArray=[]
-    )
-___________________________________________________________
-*/
-
 class ParticleSystem {
 
     static particles;
@@ -51,14 +27,8 @@ class ParticleSystem {
         this.minMovementToDraw = minSpeedToDraw;
     }
 
-    static cleanParticlesArray(){
-        this.particles = [];
-    }
-
-    //pass()
-    // Efface le canvas puis appelle tickttl() sur chaque particule dans passArray, si elle est toujours en vie on la dessine, sinon on la supprime de passArray et on la met à null.
     static pass() {
-        for(let particle of this.particles){
+        for (let particle of this.particles) {
             if (particle instanceof ParticleWindMap) {
                 if (!particle.tickttl()){
                     particle.setPositionToSpawn();
@@ -67,7 +37,6 @@ class ParticleSystem {
             }
         }
     }
-
 
     static updateParticleCount(nb_particules) {
         CanvasManager.resetBackground();
@@ -131,14 +100,12 @@ class ParticleSystem {
     }
 
     static updateParticlePositions() {
-        const visibleArea = CanvasManager.getVisibleArea();
+        const topLeftCorner = CanvasManager.visibleTopLeftCorner;
+        const bottomRightCorner = CanvasManager.visibleBottomRightCorner;
 
         for (let particle of this.particles) {
-            let x = getRandomFloat(visibleArea.topLeftCorner.x, visibleArea.bottomRightCorner.x);
-            let y = getRandomFloat(visibleArea.topLeftCorner.y, visibleArea.bottomRightCorner.y);
-
-            x = (x * CanvasManager.zoomScale) + CanvasManager.offsetX;
-            y = (y * CanvasManager.zoomScale) + CanvasManager.offsetY;
+            let x = getRandomFloat(topLeftCorner.x, bottomRightCorner.x);
+            let y = getRandomFloat(topLeftCorner.y, bottomRightCorner.y);
 
             particle.posX = x
             particle.posY = y

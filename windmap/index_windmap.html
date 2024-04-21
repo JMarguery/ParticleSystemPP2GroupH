@@ -9,7 +9,7 @@
 <div id="burgerMenu" class="burger-menu collapsed">
   <button onclick="toggleMenu()">☰</button>
   <button id="pauseButton" onclick="pause()">||</button>
-  <button onclick="unzoom()">-</button>
+  <button onclick="zoomOutButton()">-</button>
   <div class="menu-content" id="menuContent" style="display: none;">
     <div class="input-group">
       <label for="nb_particules">Nombre de particules:</label>
@@ -49,6 +49,14 @@
     </div>
   </div>
 </div>
+<div id="colorScale">
+  <div id="colorScaleMarker" class="colorScaleMarker">
+    <span id="colorScaleMarkerText"></span>
+  </div>
+</div>
+
+
+
 <script src="https://d3js.org/d3.v6.min.js"></script>
 <script src="ParticleSystem.js"></script>
 <script src="../utils.js"></script>

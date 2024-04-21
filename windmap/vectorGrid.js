@@ -3,6 +3,7 @@ class VectorGrid {
     static rows;
     static vecteurs;
     static maxWindSpeed;
+    static minWindSpeed;
 
     static index(x, y) {
         return x + y * this.cols;
@@ -15,6 +16,7 @@ class VectorGrid {
         this.vecteurs = new Array(this.cols * this.rows);
 
         let max = 0;
+        let min = 100;
 
         for (let i = 0; i < this.cols * this.rows; i++) {
             const u = data[0].data[i];
@@ -24,12 +26,14 @@ class VectorGrid {
             if (speed > max) {
                 max = speed;
             }
-
-
+            if (speed < min){
+                min = speed;
+            }
             this.vecteurs[i] = { x: u, y: v };
         }
 
         this.maxWindSpeed = max;
+        this.minWindSpeed = min;
     }
 
     static getVecteurWithInterpolation(coordX, coordY) {

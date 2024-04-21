@@ -10,10 +10,13 @@ class CanvasManager {
     static lastX = 0;
     static lastY = 0;
     static isDragging = false;
+    static visibleTopLeftCorner;
+    static visibleBottomRightCorner;
 
     static create(width, height, color, speedAttenuationSpee) {
         this.canvas = document.createElement("canvas");
         this.canvas.className = "simulation";
+        this.canvas.id = "simulation";
         this.context = this.canvas.getContext("2d");
         this.bgcolor = color;
         this.canvas.width = width;
@@ -21,15 +24,29 @@ class CanvasManager {
         document.body.appendChild(this.canvas);
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.attenuationSpeed = speedAttenuationSpee;
+        this.visibleTopLeftCorner = {x: 0, y:0};
+        this.visibleBottomRightCorner = {x: width, y:height};
 
+        this.mouseDown = this.mouseDown.bind(this);
         this.canvas.addEventListener('mousedown', this.mouseDown);
         this.canvas.addEventListener('mousemove', this.mouseMove);
         this.canvas.addEventListener('mouseup', this.mouseUp);
-        this.canvas.addEventListener('mouseout', this.mouseUp);
+        this.canvas.addEventListener('contextmenu', this.preventContextMenu);
         this.canvas.addEventListener('wheel', this.handleWheel, {passive: false});
     }
 
+
+    static drawCross(x, y) {
+        CanvasManager.context.beginPath();
+        CanvasManager.context.moveTo(x - 10, y);
+        CanvasManager.context.lineTo(x + 10, y);
+        CanvasManager.context.moveTo(x, y - 10);
+        CanvasManager.context.lineTo(x, y + 10);
+        CanvasManager.context.stroke();
+    }
+
     static applyTransformations() {
+        CanvasManager.getVisibleArea();
         ParticleSystem.updateParticlePositions();
         CanvasManager.resetBackground();
     }
@@ -62,10 +79,10 @@ class CanvasManager {
 
 
     static updateAttenuationSpeed(vitesseAttenuationTrace) {
-        this.attenuationSpeed = vitesseAttenuationTrace;
+        if (vitesseAttenuationTrace >= 0){
+            this.attenuationSpeed = vitesseAttenuationTrace;
+        }
     }
-
-
 
     static handleWheel(event) {
         Simulation.pause = true;
@@ -82,17 +99,17 @@ class CanvasManager {
     static zoomIn() {
         const centerX = CanvasManager.canvas.width / 2;
         const centerY = CanvasManager.canvas.height / 2;
-        const newZoomScale = CanvasManager.zoomScale * 1.1;
+        const newZoomScale = CanvasManager.zoomScale * (1+CanvasManager.zoomStep);
         CanvasManager.adjustOffsets(centerX, centerY, newZoomScale);
         CanvasManager.zoomScale = newZoomScale;
         CanvasManager.applyTransformations();
     }
 
     static zoomOut() {
-        if (CanvasManager.zoomScale > 1) {
+        if (CanvasManager.zoomScale > 0.4) {
             const centerX = CanvasManager.canvas.width / 2;
             const centerY = CanvasManager.canvas.height / 2;
-            const newZoomScale = Math.max(CanvasManager.zoomScale * 0.9, 1);
+            const newZoomScale = Math.max(CanvasManager.zoomScale *(1-CanvasManager.zoomStep), 0.4);
             CanvasManager.adjustOffsets(centerX, centerY, newZoomScale);
             CanvasManager.zoomScale = newZoomScale;
             CanvasManager.applyTransformations();
@@ -106,22 +123,39 @@ class CanvasManager {
     }
 
     static mouseDown(event) {
-        CanvasManager.lastX = event.clientX;
-        CanvasManager.lastY = event.clientY;
-        CanvasManager.isDragging = true;
-        Simulation.pause = true;
+        if(event.button === 0){
+            CanvasManager.lastX = event.clientX;
+            CanvasManager.lastY = event.clientY-20;
+            CanvasManager.isDragging = true;
+            Simulation.pause = true;
+        }else if(event.button === 2){
+            CanvasManager.getVisibleArea();
+            let mouseX= event.clientX;
+            let mouseY= event.clientY-20;
+            CanvasManager.preventContextMenu(event);
+            if ( mouseX > CanvasManager.visibleTopLeftCorner.x && mouseX < CanvasManager.visibleBottomRightCorner.x ){
+                if ( mouseY > CanvasManager.visibleTopLeftCorner.y && mouseY < CanvasManager.visibleBottomRightCorner.y ){
+                    const vecteurVent = VectorGrid.getVecteurWithInterpolation(mouseX, mouseY);
+                    CanvasManager.drawCross(mouseX,mouseY)
+                    console.log("X dans le cavans , : ",mouseX);
+                    console.log("Y dans le cavans , : ",mouseY);
+                    console.log("vitesse du vent a cet endroit :", Math.sqrt(vecteurVent.x**2 + vecteurVent.y**2));
+                    displaySpeedOnScale( Math.sqrt(vecteurVent.x**2 + vecteurVent.y**2));
+                }
+            }
+        }
     }
 
     static mouseMove(event) {
         if (CanvasManager.isDragging) {
             const dx = event.clientX - CanvasManager.lastX;
-            const dy = event.clientY - CanvasManager.lastY;
+            const dy = event.clientY-20 - CanvasManager.lastY;
 
             CanvasManager.offsetX += dx;
             CanvasManager.offsetY += dy;
 
             CanvasManager.lastX = event.clientX;
-            CanvasManager.lastY = event.clientY;
+            CanvasManager.lastY = event.clientY-20;
 
             CanvasManager.applyTransformations();
         }
@@ -134,30 +168,37 @@ class CanvasManager {
 
 
     static getVisibleArea(){
-        const topLeftCorner  = {
+        const visibleTopLeftCorner  = {
             x : 0,
             y : 0
         }
-        const bottomRightCorner = {
+        const visibleBottomRightCorner = {
             x : 0,
             y : 0
         }
 
         if(this.offsetX < 0) {
-            topLeftCorner.x = -this.offsetX/this.zoomScale;
-
+            visibleTopLeftCorner.x = -this.offsetX/this.zoomScale;
         }
-        bottomRightCorner.x = Math.min((this.canvas.width-this.offsetX)/this.zoomScale, this.canvas.width);
+        visibleBottomRightCorner.x = Math.min((this.canvas.width-this.offsetX)/this.zoomScale, this.canvas.width);
         if(this.offsetY < 0) {
-            topLeftCorner.y = -this.offsetY/this.zoomScale;
+            visibleTopLeftCorner.y = -this.offsetY/this.zoomScale;
         }
-        bottomRightCorner.y = Math.min((this.canvas.height-this.offsetY)/this.zoomScale, this.canvas.height);
+        visibleBottomRightCorner.y = Math.min((this.canvas.height-this.offsetY)/this.zoomScale, this.canvas.height);
+
+        visibleTopLeftCorner.x = (visibleTopLeftCorner.x* CanvasManager.zoomScale) + CanvasManager.offsetX;
+        visibleTopLeftCorner.y = (visibleTopLeftCorner.y* CanvasManager.zoomScale) + CanvasManager.offsetY;
+        visibleBottomRightCorner.x = (visibleBottomRightCorner.x* CanvasManager.zoomScale) + CanvasManager.offsetX;
+        visibleBottomRightCorner.y = (visibleBottomRightCorner.y* CanvasManager.zoomScale) + CanvasManager.offsetY;
 
 
-        return {
-            topLeftCorner,
-            bottomRightCorner
-        }
+        this.visibleTopLeftCorner = visibleTopLeftCorner;
+        this.visibleBottomRightCorner = visibleBottomRightCorner;
+
+    }
+
+    static preventContextMenu(event) {
+        event.preventDefault();
     }
 
 }

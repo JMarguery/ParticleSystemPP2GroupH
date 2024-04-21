@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    border: 0;
 }
 
 .burger-menu {
@@ -20,6 +21,8 @@
 
 .menu-content {
     display: none;
+    overflow-y: auto;
+    max-height: 90%;
 }
 
 .menu-content.open {
@@ -29,7 +32,6 @@
 .burger-menu.collapsed {
     width: 75px;
     padding: 10px;
-
 }
 
 label {
@@ -73,6 +75,7 @@ button:hover {
     background-color: #0056b3;
 }
 
+
 .input-group {
     margin-bottom: 15px;
 }
@@ -87,5 +90,48 @@ button:hover {
 }
 
 .simulation{
+    margin-top: 20px;
+}
+
+
+#colorScale {
+    height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 2px solid;
+    border-bottom-color: #f9f9f9;
+}
+
+
+#drawingCanvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.wind-scale {
+    position: relative;
+    width: 100%;
+    height: 20px;
+}
+
+.colorScaleMarker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: white;
+}
+
+.colorScaleMarker span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50px;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
 }
 

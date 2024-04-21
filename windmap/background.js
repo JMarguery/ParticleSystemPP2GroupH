@@ -10,6 +10,7 @@ class BackgroundCanvas {
         this.initializeColorLookup(VectorGrid.maxWindSpeed);
         this.drawBackgroundImage();
         this.drawCountryBorders();
+        this.drawColorScale();
     }
 
     static initializeColorLookup(maxWindSpeed) {
@@ -21,24 +22,22 @@ class BackgroundCanvas {
     }
 
     static drawBackgroundImage() {
-        const width = this.offscreenCanvas.width;
-        const height = this.offscreenCanvas.height;
-
-        for (let x = 0; x < width; x++) {
-            for (let y = 0; y < height; y++) {
+        for (let x = 0; x < this.offscreenCanvas.width; x++) {
+            for (let y = 0; y < this.offscreenCanvas.height; y++) {
                 const vector = VectorGrid.getVecteurWithInterpolation(x, y);
-                let speed = Math.sqrt(vector.x **2 + vector.y **2);
+                let speed = Math.sqrt(vector.x ** 2 + vector.y ** 2);
                 const normalizedSpeed = Math.min(Math.floor((speed / VectorGrid.maxWindSpeed) * 100), 100);
 
                 this.offscreenContext.fillStyle = this.colorLookup[normalizedSpeed];
-                this.offscreenContext.fillRect(x, y, 1 , 1);
+                this.offscreenContext.fillRect(x, y, 1, 1);
             }
         }
+        this.offscreenContext.drawImage(this.offscreenCanvas, 0, 0, CanvasManager.canvas.width, CanvasManager.canvas.height);
     }
 
 
-    static drawCountryBorders(){
-        const scale = this.offscreenCanvas.width / (2 * Math.PI );
+    static drawCountryBorders() {
+        const scale = this.offscreenCanvas.width / (2 * Math.PI);
 
         // Define a geographical projection
         const projection = d3.geoEquirectangular().translate([this.offscreenCanvas.width / 2, this.offscreenCanvas.height / 2]).scale(scale);
@@ -59,4 +58,40 @@ class BackgroundCanvas {
             });
         });
     }
+
+    static drawColorScale() {
+        const colorScaleDiv = document.getElementById('colorScale');
+
+        const scaleWidth = window.innerWidth - 75;
+        const scaleHeight = colorScaleDiv.offsetHeight;
+
+        colorScaleDiv.style.width = `${scaleWidth}px`;
+        const canvas = document.createElement('canvas');
+        canvas.width = scaleWidth;
+        canvas.height = scaleHeight;
+
+        const context = canvas.getContext('2d');
+        const gradient = context.createLinearGradient(0, 0, scaleWidth, 0);
+
+        this.colorLookup.forEach((color, index) => {
+            const position = index / 100;
+            gradient.addColorStop(position, color);
+        });
+
+        context.fillStyle = gradient;
+        context.fillRect(0, 0, scaleWidth, scaleHeight);
+
+        context.fillStyle = 'white';
+        context.font = '14px Arial';
+
+        context.textAlign = 'left';
+        context.fillText('0 m/s', 5, scaleHeight - 5);
+        context.textAlign = 'right';
+        context.fillText(`${Math.round(VectorGrid.maxWindSpeed)} m/s`, scaleWidth - 5, scaleHeight - 5);
+
+        colorScaleDiv.style.backgroundImage = `url(${canvas.toDataURL()})`;
+    }
+
+
+
 }

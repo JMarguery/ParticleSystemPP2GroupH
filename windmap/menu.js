@@ -11,12 +11,11 @@ function toggleMenu() {
     }
 }
 
-function unzoom() {
+function zoomOutButton() {
     CanvasManager.zoomScale = 1;
     CanvasManager.offsetX = 0;
     CanvasManager.offsetY = 0;
-    CanvasManager.resetBackground();
-    ParticleSystem.updateParticlePositions();
+    CanvasManager.applyTransformations();
 }
 
 function pause(){
@@ -29,6 +28,22 @@ function pause(){
     }
 }
 
+function updateInputNbParticles(value){
+    const nbParticles = document.getElementById('nb_particules');
+    nbParticles.value = value;
+}
+
+function displaySpeedOnScale(speed){
+    const scaleElement = document.getElementById('colorScale');
+    const maxSpeed = VectorGrid.maxWindSpeed;
+    const scaleWidth = scaleElement.offsetWidth;
+    const position = (speed / maxSpeed) * scaleWidth;
+
+    const marker = document.getElementById('colorScaleMarker');
+    const speedText = document.getElementById('colorScaleMarkerText');
+    marker.style.left = `${position}px`;
+    speedText.textContent = `${speed.toFixed(2)}  `;
+}
 
 document.getElementById('nb_particules').addEventListener('change', function() {
     const nb_particules = parseInt(this.value, 10);
