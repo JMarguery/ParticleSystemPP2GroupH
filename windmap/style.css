@@ -130,8 +130,11 @@ button:hover {
     left: 50%;
     top: 50%;
     width: 50px;
-    transform: translate(-50%, -50%);
+    /* Move the span 10px to the right and 10px down from the center */
+    transform: translate(calc(-50% + 10px), calc(-50% + 20px));
     color: white;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
 }
 
