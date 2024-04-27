@@ -2,7 +2,6 @@ class CanvasManager {
     static context;
     static canvas;
     static bgcolor;
-    static attenuationSpeed;
     static zoomScale = 1;
     static zoomStep = 0.1;
     static offsetX = 0;
@@ -13,7 +12,7 @@ class CanvasManager {
     static visibleTopLeftCorner;
     static visibleBottomRightCorner;
 
-    static create(width, height, color, speedAttenuationSpee) {
+    static create(width, height, color) {
         this.canvas = document.createElement("canvas");
         this.canvas.className = "simulation";
         this.canvas.id = "simulation";
@@ -23,7 +22,6 @@ class CanvasManager {
         this.canvas.height = height;
         document.body.appendChild(this.canvas);
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.attenuationSpeed = speedAttenuationSpee;
         this.visibleTopLeftCorner = {x: 0, y:0};
         this.visibleBottomRightCorner = {x: width, y:height};
 
@@ -31,6 +29,7 @@ class CanvasManager {
         this.canvas.addEventListener('mousedown', this.mouseDown);
         this.canvas.addEventListener('mousemove', this.mouseMove);
         this.canvas.addEventListener('mouseup', this.mouseUp);
+        this.canvas.addEventListener('mouseout', this.mouseUp);
         this.canvas.addEventListener('contextmenu', this.preventContextMenu);
         this.canvas.addEventListener('wheel', this.handleWheel, {passive: false});
     }
@@ -47,7 +46,7 @@ class CanvasManager {
 
     static applyTransformations() {
         CanvasManager.getVisibleArea();
-        ParticleSystem.updateParticlePositions();
+        Simulation.updateParticlePositions();
         CanvasManager.resetBackground();
     }
 
@@ -72,17 +71,11 @@ class CanvasManager {
     }
 
     static drawAttenuatedBackground(){
-        CanvasManager.context.globalAlpha = CanvasManager.attenuationSpeed;
+        CanvasManager.context.globalAlpha = Simulation.attenuationSpeed;
         CanvasManager.drawMovedBackground();
         CanvasManager.context.globalAlpha = 1.0;
     }
 
-
-    static updateAttenuationSpeed(vitesseAttenuationTrace) {
-        if (vitesseAttenuationTrace >= 0){
-            this.attenuationSpeed = vitesseAttenuationTrace;
-        }
-    }
 
     static handleWheel(event) {
         Simulation.pause = true;

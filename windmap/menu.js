@@ -47,43 +47,43 @@ function displaySpeedOnScale(speed){
 
 document.getElementById('nb_particules').addEventListener('change', function() {
     const nb_particules = parseInt(this.value, 10);
-    ParticleSystem.updateParticleCount(nb_particules);
+    Simulation.updateParticleCountWindMap(nb_particules);
 });
 
 document.getElementById('vitesseAttenuationTrace').addEventListener('change', function() {
     const vitesseAttenuationTrace = parseFloat(this.value);
-    CanvasManager.updateAttenuationSpeed(vitesseAttenuationTrace);
+    Simulation.updateAttenuationSpeed(vitesseAttenuationTrace);
 });
 
 document.getElementById('radiusParticles').addEventListener('change', function() {
     const radiusParticles = parseFloat(this.value);
-    ParticleSystem.updateParticleRadius(radiusParticles);
+    Simulation.updateParticleRadius(radiusParticles);
 });
 
 document.getElementById('opacityParticles').addEventListener('change', function() {
     const opacityParticles = parseFloat(this.value);
-    ParticleSystem.updateParticleOpacity(opacityParticles);
+    Simulation.updateParticleOpacity(opacityParticles);
 });
 
 document.getElementById('dureeDeVieMini').addEventListener('change', function() {
     const dureeDeVieMini = parseInt(this.value, 10);
-    ParticleSystem.updateParticleTtlMini(dureeDeVieMini);
+    Simulation.updateParticleTtlMini(dureeDeVieMini);
 });
 
 document.getElementById('dureeDeVieMaxi').addEventListener('change', function() {
     const dureeDeVieMaxi = parseInt(this.value, 10);
-    ParticleSystem.updateParticleTtlMax(dureeDeVieMaxi);
+    Simulation.updateParticleTtlMax(dureeDeVieMaxi);
 });
 
 
 document.getElementById('cacherParticulesLentes').addEventListener('change', function() {
     const cacherParticulesLentes = this.checked;
-    ParticleSystem.updateHideSlowParticles(cacherParticulesLentes);
+    Simulation.updateHideSlowParticles(cacherParticulesLentes);
 });
 
 document.getElementById('deplacementMinimumPourAfficher').addEventListener('change', function() {
     const minMovementToDraw = parseFloat(this.value);
-    ParticleSystem.updateMinMovementToDrawn(minMovementToDraw);
+    Simulation.updateMinMovementToDrawn(minMovementToDraw);
 });
 
 document.getElementById('speedFactor').addEventListener('change', function() {
