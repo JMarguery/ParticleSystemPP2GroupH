@@ -18,7 +18,11 @@ class Simulation {
 
 
     static create(data) {
-        this.width = window.innerWidth-75;
+        const parent = document.getElementById("map");
+        this.width = parent.clientWidth;
+        //this.height = parent.clientHeight;
+
+        //this.width = window.innerWidth-200;
         this.height = this.width*0.5;
         if(this.width < 360){
             this.width = 360;
@@ -28,7 +32,7 @@ class Simulation {
         }
 
         this.pause = true;
-        CanvasManager.create(this.width, this.height, 'blue', this.vitesseAttenuationTrace);
+        CanvasManager.create(this.width, this.height, 'blue', this.vitesseAttenuationTrace,parent);
 
         VectorGrid.create(data);
 

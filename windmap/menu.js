@@ -22,9 +22,9 @@ function pause(){
     const pauseButton = document.getElementById('pauseButton');
     Simulation.pauseButton = !Simulation.pauseButton;
     if(Simulation.pauseButton){
-        pauseButton.innerText="|>";
+        pauseButton.innerText="▶";
     }else{
-        pauseButton.innerText="||";
+        pauseButton.innerText="❙❙";
     }
 }
 

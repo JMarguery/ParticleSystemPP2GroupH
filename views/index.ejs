@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>ParticleWindMap</title>
+    <link rel="stylesheet" href="/indexStyle">
+    <script src="indexJs/utils.js"></script>
+</head>
+<body>
+
+
+
+<div class = "index-div">
+    <div class="nav-div">
+    <%- include ('partials/navbar') %>
+</div>
+
+<div class = "map-div">
+
+<% if (!request) { %>
+<% include ('partials/burgermenu-windmap')%>
+<% } else if (request === 'firework') { %>
+        <% console.log("okok") %>
+<%- include ('partials/burgermenu-firework')%>
+<% } else if (request === 'fire') { %>
+<%- include ('partials/burgermenu-fire')%>
+<% } else if (request === 'tree') { %>
+<% } else { %>
+        <%-include ('partials/simu-windmap')%>
+<%-include ('partials/burgermenu-windmap')%>
+
+<% } %>
+
+
+</div>
+</div>
+
+</body>
+</html>

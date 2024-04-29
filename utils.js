@@ -61,3 +61,18 @@ function genererDirectionsSymetriques(nombreParticules, angleDirectionInitiale, 
     }
     return directions;
 }
+/*
+function getActivity(name){
+    var script = document.createElement('script');
+    switch (name) {
+        case "windmap":
+            script.src =
+        case "fire":
+            return
+        case "firework":
+            return
+        case "tree":
+            return
+    }
+}
+*/

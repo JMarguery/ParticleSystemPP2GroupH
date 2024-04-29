@@ -13,7 +13,7 @@ class CanvasManager {
     static visibleTopLeftCorner;
     static visibleBottomRightCorner;
 
-    static create(width, height, color, speedAttenuationSpee) {
+    static create(width, height, color, speedAttenuationSpee,parent) {
         this.canvas = document.createElement("canvas");
         this.canvas.className = "simulation";
         this.canvas.id = "simulation";
@@ -21,7 +21,7 @@ class CanvasManager {
         this.bgcolor = color;
         this.canvas.width = width;
         this.canvas.height = height;
-        document.body.appendChild(this.canvas);
+        parent.appendChild(this.canvas);
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.attenuationSpeed = speedAttenuationSpee;
         this.visibleTopLeftCorner = {x: 0, y:0};
