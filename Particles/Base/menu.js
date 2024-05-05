@@ -35,9 +35,8 @@ function updateInputNbParticles(value){
 
 function displaySpeedOnScale(speed){
     const scaleElement = document.getElementById('colorScale');
-    const maxSpeed = VectorGrid.maxWindSpeed;
     const scaleWidth = scaleElement.offsetWidth;
-    const position = (speed / maxSpeed) * scaleWidth;
+    let position =  Math.min((speed / 39), 1)* scaleWidth;
 
     const marker = document.getElementById('colorScaleMarker');
     const speedText = document.getElementById('colorScaleMarkerText');

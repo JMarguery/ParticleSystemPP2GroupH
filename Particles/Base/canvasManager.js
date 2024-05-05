@@ -123,9 +123,10 @@ class CanvasManager {
             CanvasManager.isDragging = true;
             Simulation.pause = true;
         }else if(event.button === 2){
+            const navbar = document.getElementsByClassName("navbar")[0]
             CanvasManager.getVisibleArea();
             let mouseX= event.clientX;
-            let mouseY= event.clientY-20;
+            let mouseY= event.clientY - navbar.style.height;
             CanvasManager.preventContextMenu(event);
             if ( mouseX > CanvasManager.visibleTopLeftCorner.x && mouseX < CanvasManager.visibleBottomRightCorner.x ){
                 if ( mouseY > CanvasManager.visibleTopLeftCorner.y && mouseY < CanvasManager.visibleBottomRightCorner.y ){

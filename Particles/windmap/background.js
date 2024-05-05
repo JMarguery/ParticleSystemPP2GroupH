@@ -7,16 +7,17 @@ class BackgroundCanvas {
         this.offscreenCanvas = new OffscreenCanvas(width, height);
         this.offscreenContext = this.offscreenCanvas.getContext("2d");
 
-        this.initializeColorLookup(VectorGrid.maxWindSpeed);
+        this.initializeColorLookup();
         this.drawBackgroundImage();
         this.drawCountryBorders();
         this.drawColorScale();
     }
 
-    static initializeColorLookup(maxWindSpeed) {
+    static initializeColorLookup() {
+        const maxWindSpeed = 39;
         for (let i = 0; i <= 100; i++) {
             const normalizedSpeed = (i / 100) * maxWindSpeed;
-            const hue = 240 - (240 * (normalizedSpeed / maxWindSpeed));
+            const hue = 240 - (320 * (normalizedSpeed / maxWindSpeed));
             this.colorLookup[i] = `hsl(${hue}, 100%, 30%)`;
         }
     }
@@ -26,7 +27,7 @@ class BackgroundCanvas {
             for (let y = 0; y < this.offscreenCanvas.height; y++) {
                 const vector = VectorGrid.getVecteurWithInterpolation(x, y);
                 let speed = Math.sqrt(vector.x ** 2 + vector.y ** 2);
-                const normalizedSpeed = Math.min(Math.floor((speed / VectorGrid.maxWindSpeed) * 100), 100);
+                const normalizedSpeed = Math.min(Math.floor((speed / 39) * 100), 100);
 
                 this.offscreenContext.fillStyle = this.colorLookup[normalizedSpeed];
                 this.offscreenContext.fillRect(x, y, 1, 1);
@@ -87,7 +88,7 @@ class BackgroundCanvas {
         context.textAlign = 'left';
         context.fillText('0 m/s', 5, scaleHeight - 5);
         context.textAlign = 'right';
-        context.fillText(`${Math.round(VectorGrid.maxWindSpeed)} m/s`, scaleWidth - 5, scaleHeight - 5);
+        context.fillText(`${39} m/s`, scaleWidth - 5, scaleHeight - 5);
 
         colorScaleDiv.style.backgroundImage = `url(${canvas.toDataURL()})`;
     }
