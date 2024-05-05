@@ -61,12 +61,8 @@ class Simulation {
         if (fps < Simulation.fpsMin) {
             Simulation.lowFpsCount++;
             if (Simulation.lowFpsCount >= Simulation.maxLowFps) {
-                /*
-                console.log(`Fps en dessous de ${Simulation.fpsMin} pendant ${Simulation.lowFpsCount} frames`);
-                console.log(`Le nombre de particules a été divisé par 1/4`);
-                 */
                 Simulation.nb_particules = Math.max(1000, Math.floor(ParticleSystem.particles.length / 1.25));
-                this.updateParticleCountWindMap(Simulation.nb_particules);
+                Simulation.updateParticleCountWindMap(Simulation.nb_particules);
                 updateInputNbParticles(Simulation.nb_particules);
                 Simulation.lowFpsCount = 0;
             }

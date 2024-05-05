@@ -88,7 +88,7 @@ class BackgroundCanvas {
         context.textAlign = 'left';
         context.fillText('0 m/s', 5, scaleHeight - 5);
         context.textAlign = 'right';
-        context.fillText(`${39} m/s`, scaleWidth - 5, scaleHeight - 5);
+        context.fillText(`+${39} m/s`, scaleWidth - 5, scaleHeight - 5);
 
         colorScaleDiv.style.backgroundImage = `url(${canvas.toDataURL()})`;
     }
