@@ -17,7 +17,7 @@
     padding-right: -100px;
     box-sizing: border-box;
     background: rgba(51,51,51,0.5);
-    height : 100vh;
+    height : 90%;
     /*flex-basis : 20vw;*/
 }
 
@@ -110,8 +110,9 @@ button:hover {
 
 .simulation{
     width : 100%;
-    height: 100%;
-    /*margin-top: 20px;*/
+    height: 94.6vh;
+    /*margin-top: 20px;
+    */
 }
 
 
@@ -158,12 +159,12 @@ button:hover {
 .index-div {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
 }
 
 .map-div {
     background: #333;
-    flex-grow : 10;
+    
 
 }
 
@@ -176,7 +177,7 @@ html {
 }
 
 .windmap-container {
-    height: 100%;
+    /*height: 100%;*/
     position : relative;
     background: #333;
 }
