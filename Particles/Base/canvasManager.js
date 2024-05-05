@@ -117,22 +117,37 @@ class CanvasManager {
     }
 
     static mouseDown(event) {
-        if(event.button === 0){
-            CanvasManager.lastX = event.clientX;
-            CanvasManager.lastY = event.clientY-20;
+        const canvas = document.querySelector('canvas');
+        const rect = canvas.getBoundingClientRect();
+
+        const realWidth = rect.width;
+        const realHeight = rect.height;
+
+        const internalWidth = canvas.width;
+        const internalHeight = canvas.height;
+
+        const scaleX = internalWidth / realWidth;
+        const scaleY = internalHeight / realHeight;
+
+        let mouseX = (event.clientX - rect.left) * scaleX;
+        let mouseY = (event.clientY - rect.top) * scaleY ;
+
+        if (event.button === 0) {
+            CanvasManager.lastX = mouseX;
+            CanvasManager.lastY = mouseY;
             CanvasManager.isDragging = true;
             Simulation.pause = true;
-        }else if(event.button === 2){
-            const navbar = document.getElementsByClassName("navbar")[0]
+        } else if (event.button === 2) {
             CanvasManager.getVisibleArea();
-            let mouseX= event.clientX;
-            let mouseY= event.clientY - navbar.style.height;
+            console.log(this.visibleTopLeftCorner);
+            console.log(this.visibleBottomRightCorner);
+
             CanvasManager.preventContextMenu(event);
-            if ( mouseX > CanvasManager.visibleTopLeftCorner.x && mouseX < CanvasManager.visibleBottomRightCorner.x ){
-                if ( mouseY > CanvasManager.visibleTopLeftCorner.y && mouseY < CanvasManager.visibleBottomRightCorner.y ){
+            if (mouseX > CanvasManager.visibleTopLeftCorner.x && mouseX < CanvasManager.visibleBottomRightCorner.x) {
+                if (mouseY > CanvasManager.visibleTopLeftCorner.y && mouseY < CanvasManager.visibleBottomRightCorner.y) {
                     const vecteurVent = VectorGrid.getVecteurWithInterpolation(mouseX, mouseY);
-                    CanvasManager.drawCross(mouseX,mouseY)
-                    displaySpeedOnScale( Math.sqrt(vecteurVent.x**2 + vecteurVent.y**2));
+                    CanvasManager.drawCross(mouseX, mouseY);
+                    displaySpeedOnScale(Math.sqrt(vecteurVent.x**2 + vecteurVent.y**2));
                 }
             }
         }
@@ -140,18 +155,34 @@ class CanvasManager {
 
     static mouseMove(event) {
         if (CanvasManager.isDragging) {
-            const dx = event.clientX - CanvasManager.lastX;
-            const dy = event.clientY-20 - CanvasManager.lastY;
+            const canvas = document.querySelector('canvas');
+            const rect = canvas.getBoundingClientRect();
+
+            const realWidth = rect.width;
+            const realHeight = rect.height;
+
+            const internalWidth = canvas.width;
+            const internalHeight = canvas.height;
+
+            const scaleX = internalWidth / realWidth;
+            const scaleY = internalHeight / realHeight;
+
+            let mouseX = (event.clientX - rect.left) * scaleX;
+            let mouseY = (event.clientY - rect.top) * scaleY;
+
+            const dx = mouseX - CanvasManager.lastX;
+            const dy = mouseY - CanvasManager.lastY;
 
             CanvasManager.offsetX += dx;
             CanvasManager.offsetY += dy;
 
-            CanvasManager.lastX = event.clientX;
-            CanvasManager.lastY = event.clientY-20;
+            CanvasManager.lastX = mouseX;
+            CanvasManager.lastY = mouseY;
 
             CanvasManager.applyTransformations();
         }
     }
+
 
     static mouseUp() {
         CanvasManager.isDragging = false;
