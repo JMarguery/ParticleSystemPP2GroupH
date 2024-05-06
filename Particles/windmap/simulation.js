@@ -88,8 +88,8 @@ class Simulation {
                 ParticleSystem.particles.push(new ParticleWindMap(
                     `rgba(255,255,255,${this.opacityParticles})`,
                     this.radiusParticles,
-                    getRandomFloat(0, CanvasManager.canvas.width),
-                    getRandomFloat(0, CanvasManager.canvas.height),
+                    getRandomFloat(CanvasManager.visibleTopLeftCorner.x, CanvasManager.visibleBottomRightCorner.x),
+                    getRandomFloat(CanvasManager.visibleTopLeftCorner.y, CanvasManager.visibleBottomRightCorner.y),
                     getRandomInt(this.ttlMin, this.ttlMax)
                 ));
             }
