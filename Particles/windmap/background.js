@@ -63,10 +63,10 @@ class BackgroundCanvas {
     static drawColorScale() {
         const colorScaleDiv = document.getElementById('colorScale');
 
-        const scaleWidth = window.innerWidth - 75;
+        const scaleWidth = window.innerWidth-20;
         const scaleHeight = colorScaleDiv.offsetHeight;
 
-        colorScaleDiv.style.width = `${scaleWidth}px`;
+        colorScaleDiv.style.width = `100%`;
         const canvas = document.createElement('canvas');
         canvas.width = scaleWidth;
         canvas.height = scaleHeight;

@@ -139,8 +139,8 @@ class CanvasManager {
             Simulation.pause = true;
         } else if (event.button === 2) {
             CanvasManager.getVisibleArea();
-            console.log(this.visibleTopLeftCorner);
-            console.log(this.visibleBottomRightCorner);
+            console.log(mouseX);
+            console.log(mouseY);
 
             CanvasManager.preventContextMenu(event);
             if (mouseX > CanvasManager.visibleTopLeftCorner.x && mouseX < CanvasManager.visibleBottomRightCorner.x) {
