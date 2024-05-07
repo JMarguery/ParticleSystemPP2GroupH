@@ -1,1 +1,1 @@
-SimulationPhysic.create();
+SimulationPhysic.create("activity");

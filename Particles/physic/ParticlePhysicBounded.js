@@ -122,4 +122,9 @@ class ParticlePhysicBounded extends ParticlePhysic{
         this.bounce_coeff = bounce_coeff;
         this.ttl = 0;
     };
+
+    static createNew(){
+
+    }
+
 }

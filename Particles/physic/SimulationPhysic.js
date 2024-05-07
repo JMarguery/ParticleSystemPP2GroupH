@@ -1,9 +1,9 @@
-class SimulationPhysic {
+class SimulationPhysic extends SimulationBase{
     static width;
     static height;
-    static nb_particules = 300;
-    static attenuationSpeed = 0.05;
-    static radiusParticle = 3;
+    static nb_particules = 500;
+    static attenuationSpeed = 0.1;
+    static radiusParticle = 5;
     static opacityParticle = 1;
     static ttlMin = 300;
     static ttlMax = 500;
@@ -12,30 +12,36 @@ class SimulationPhysic {
     static gravity = 0.05;
     static pause;
     static pauseButton = false;
+    static pastelColors = [
+        'rgba(255,179,186,1)',
+        'rgba(255,223,186,1)',
+        'rgba(255,255,186,1)',
+        'rgba(186,255,201,1)',
+        'rgba(186,225,255,1)'
+
+    ];
 
 
-
-    static create() {
-        const parent = document.getElementById("physic");
-        this.width = parent.clientWidth;
-        this.height = parent.clientHeight;
-
+    static create(divId) {
+        super.create(divId,ParticlePhysicBounded,ParticleSystemPhysic,CanvasManager);
+        this.width = this.parent.clientWidth;
+        this.height = this.parent.clientHeight;
         var boundingBox = {
             "left":0,
-            "right":parent.clientWidth,
-            "down":parent.clientHeight,
+            "right":this.parent.clientWidth,
+            "down":this.parent.clientHeight,
             "up":0,
         }
+        MenuPhysic.create(this.systemType,this.canvasManager,SimulationPhysic);
+        this.particleType.updateBoundingBox(boundingBox);
 
-        ParticlePhysicBounded.updateBoundingBox(boundingBox);
+        console.log(this.particleType.boundingBox)
 
-        console.log(ParticlePhysicBounded.boundingBox)
+        this.canvasManager.create(this.width, this.height,"white",this.parent);
 
-        CanvasManager.create(this.width, this.height,"white",parent);
+        this.systemType.create(this.nb_particules,this);
 
-        ParticleSystemPhysic.create(this.nb_particules,this.radiusParticle);
-
-        SimulationPhysic.animate(performance.now());
+        this.animate(performance.now());
     }
 
     static animate(time){
@@ -43,8 +49,36 @@ class SimulationPhysic {
         if(SimulationPhysic.pauseButton || SimulationPhysic.pause){
             return;
         }
+        SimulationPhysic.systemType.pass();
+    }
 
-        ParticleSystemPhysic.pass();
-    };
+    static createNew(){
+        const part = new ParticlePhysicBounded(
+            this.pastelColors.sample(),
+            this.radiusParticle,
+            getRandomFloat(this.radiusParticle, this.canvasManager.canvas.width-this.radiusParticle),
+            getRandomFloat(this.radiusParticle, this.canvasManager.canvas.height-this.radiusParticle),
+            getRandomFloat(-2,2),
+            getRandomFloat(-2,2),
+            getRandomInt(this.ttlMin,this.ttlMax),
+            this.gravity,
+            this.bounce_coeff,
+        )
 
+        return part;
+    }
+
+    static updateGravity(gravity){
+        this.gravity = gravity;
+        for(let particle of this.systemType.particles){
+            particle.gravity = gravity;
+        }
+    }
+
+    static updateBounce(bounce_coeff){
+        this.bounce_coeff = bounce_coeff;
+        for(let particle of this.systemType.particles){
+            particle.bounce_coeff = bounce_coeff;
+        }
+    }
 }
