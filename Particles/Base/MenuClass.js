@@ -39,12 +39,14 @@ class Menu {
         });
 
 
-
-        document.getElementById('speedFactor').addEventListener('change', function() {
-            const speedFactor = parseFloat(this.value);
-            console.log(speedFactor);
-            simulation.updateSpeedFactor(speedFactor);
-        });
+        const speedFactorElement = document.getElementById('speedFactor');
+        if (speedFactorElement) {
+            speedFactorElement.addEventListener('change', function () {
+                const speedFactor = parseFloat(this.value);
+                console.log(speedFactor);
+                simulation.updateSpeedFactor(speedFactor);
+            });
+        }
 
     }
 
@@ -65,5 +67,18 @@ class Menu {
             content.style.display = 'none';
         }
     }
+
+
+    static pause(){
+        const pauseButton = document.getElementById('pauseButton');
+        this.simulation.pauseButton = !this.simulation.pauseButton;
+        if(this.simulation.pauseButton){
+            pauseButton.innerText="▶";
+        }else{
+            pauseButton.innerText="❙❙";
+        }
+    }
+
+
 }
 

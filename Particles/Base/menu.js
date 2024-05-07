@@ -11,13 +11,6 @@ function toggleMenu() {
     }
 }
 
-function zoomOutButton() {
-    CanvasManager.zoomScale = 1;
-    CanvasManager.offsetX = 0;
-    CanvasManager.offsetY = 0;
-    CanvasManager.applyTransformations();
-}
-
 function pause(){
     const pauseButton = document.getElementById('pauseButton');
     Simulation.pauseButton = !Simulation.pauseButton;
@@ -27,6 +20,14 @@ function pause(){
         pauseButton.innerText="❙❙";
     }
 }
+
+function zoomOutButton() {
+    CanvasManager.zoomScale = 1;
+    CanvasManager.offsetX = 0;
+    CanvasManager.offsetY = 0;
+    CanvasManager.applyTransformations();
+}
+
 
 function updateInputNbParticles(value){
     const nbParticles = document.getElementById('nb_particules');

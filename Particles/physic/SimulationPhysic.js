@@ -35,8 +35,6 @@ class SimulationPhysic extends SimulationBase{
         MenuPhysic.create(this.systemType,this.canvasManager,SimulationPhysic);
         this.particleType.updateBoundingBox(boundingBox);
 
-        console.log(this.particleType.boundingBox)
-
         this.canvasManager.create(this.width, this.height,"white",this.parent);
 
         this.systemType.create(this.nb_particules,this);

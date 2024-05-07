@@ -19,8 +19,13 @@ app.get("/activity/:x", (req,res) => {
       break;
     case "firework":
       res.render('index',{request : "firework"});
+      break;
     case "physic":
       res.render('index',{request : "physic"});
+      break;
+    case "fire":
+      res.render('index',{request : "fire"});
+      break;
     default:
       res.render('index', {request : "windmap"});
   }})
@@ -66,6 +71,11 @@ app.get("/fireworkRessource/:file" , (req,res) => {
 app.get("/physicRessource/:file" , (req,res) => {
   const fileName = req.params.file;
   res.sendFile(__dirname + "/Particles/physic/"+fileName , {headers : {"Content-Type" : "text/javascript"} });
+});
+
+app.get("/fireRessource/:file" , (req,res) => {
+  const fileName = req.params.file;
+  res.sendFile(__dirname + "/Particles/fire/"+fileName , {headers : {"Content-Type" : "text/javascript"} });
 });
 
 app.set('views', path.join(__dirname, 'views'));
