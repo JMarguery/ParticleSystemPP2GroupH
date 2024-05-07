@@ -12,6 +12,10 @@ class SimulationFire extends SimulationBase{
     static spreadY = 6;
     static pause;
     static pauseButton = false;
+    static minX;
+    static maxX ;
+    static minY ;
+    static maxY ;
 
 
 
@@ -23,6 +27,11 @@ class SimulationFire extends SimulationBase{
         MenuFire.create(this.systemType,this.canvasManager,SimulationFire);
 
         this.canvasManager.create(this.width, this.height,"white",this.parent);
+
+        this.minX = this.width/2;
+        this.maxX = this.width/2;
+        this.minY = 6*this.height/7;
+        this.maxY = 6*this.height/7;
 
         this.systemType.create(this.nb_particules,this);
 
@@ -41,8 +50,8 @@ class SimulationFire extends SimulationBase{
         const part = new ParticleFire(
             "rgba(255,255,0,1)",
             this.radiusParticle,
-            this.width / 2,
-            6 * this.height / 7,
+            getRandomFloat(this.minX, this.maxX),
+            getRandomFloat(this.minY, this.maxY),
             getRandomInt(this.ttlMin, this.ttlMax),
             getRandomFloat(10, 10),
         );
@@ -62,20 +71,16 @@ class SimulationFire extends SimulationBase{
     }
 
     static updateParticlesPosition(startX, startY, endX, endY){
-        const minX = Math.min(startX, endX);
-        const maxX = Math.max(startX, endX);
-        const minY = Math.min(startY, endY);
-        const maxY = Math.max(startY, endY);
+        this.minX = Math.min(startX, endX);
+        this.maxX = Math.max(startX, endX);
+        this.minY = Math.min(startY, endY);
+        this.maxY = Math.max(startY, endY);
 
-        console.log("mini X : "+minX);
-        console.log("max X : "+maxX);
-        console.log(minY);
-        console.log(maxY);
 
         for (let particle of ParticleSystemFire.particles) {
             if (particle instanceof ParticleSystemFire.particlesType) {
-                const randomX = getRandomFloat(minX, maxX);
-                const randomY = getRandomFloat(minY, maxY);
+                const randomX = getRandomFloat(this.minX, this.maxX);
+                const randomY = getRandomFloat(this.minY, this.maxY);
                 particle.posX = randomX;
                 particle.posY = randomY;
                 particle.spawnX = randomX;
@@ -84,5 +89,16 @@ class SimulationFire extends SimulationBase{
             }
         }
     }
+
+    static updateParticleCount(nb_particules){
+        if (nb_particules > ParticleSystemFire.particles.length) {
+            for (let i = ParticleSystemFire.particles.length; i < nb_particules; i++) {
+                ParticleSystemFire.particles.push(SimulationFire.createNew());
+            }
+        }else if(nb_particules < ParticleSystemFire.particles.length){
+            ParticleSystemFire.particles.length = nb_particules;
+        }
+    }
+
 
 }
