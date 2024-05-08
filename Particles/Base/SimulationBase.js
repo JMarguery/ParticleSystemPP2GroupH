@@ -9,12 +9,10 @@ class SimulationBase {
     static ttlMin;
     static ttlMax;
     static speedFactor;
-    static bounce_coeff;
-    static gravity;
+//    static bounce_coeff;
+//    static gravity;
     static pause;
     static pauseButton;
-    static hideSlowParticles;
-    static minMovementToDraw;
 
     static particleType;
     static systemType;

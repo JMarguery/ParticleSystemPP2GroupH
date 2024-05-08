@@ -26,6 +26,8 @@ app.get("/activity/:x", (req,res) => {
     case "fire":
       res.render('index',{request : "fire"});
       break;
+    case "tree":
+        res.render('index',{request : "tree"});
     default:
       res.render('index', {request : "windmap"});
   }})
@@ -77,6 +79,11 @@ app.get("/fireRessource/:file" , (req,res) => {
   const fileName = req.params.file;
   res.sendFile(__dirname + "/Particles/fire/"+fileName , {headers : {"Content-Type" : "text/javascript"} });
 });
+
+app.get("/treeRessource/:file", (req,res) => {
+  const fileName = req.params.file;
+  res.sendFile(__dirname + "/Particles/tree/"+fileName , {headers : {"Content-Type" : "text/javascript"} });
+})
 
 app.set('views', path.join(__dirname, 'views'));
 

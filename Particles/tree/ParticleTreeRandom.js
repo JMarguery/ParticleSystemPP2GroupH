@@ -52,10 +52,13 @@ ___________________________________________________________
 */
 
 class ParticleTreeRandom extends ParticleTree{
-
+    static particleSystem;
     spreadX = 2;
     cptNextBranchAttemp = 0;
-    timerMaj = PasseurTree.updateInterval;
+    static timerMaj;
+    static treeMode = true;
+    static canvasManager;
+
     constructor(
         color,
         radius,
@@ -71,6 +74,17 @@ class ParticleTreeRandom extends ParticleTree{
         super(color,radius,posX,posY,maxttl,maxhauteur,directionArray,maxbranches,hauteur,chance)
     }
 
+static setParticleSystem(type){
+        this.particleSystem = type;
+}
+
+static setTreeMode(mode){
+        this.treeMode = mode;
+}
+
+static setBranchAttempTimer(timer){
+        this.timerMaj = timer;
+}
 
 move(){
     this.position.x+=this.direction.x+getRandomFloat(-this.spreadX/2,this.spreadX/2);
@@ -79,8 +93,18 @@ move(){
 
 draw(){
     this.move();
+
+        CanvasManagerTree.context.fillStyle = this.color;
+        CanvasManagerTree.context.beginPath();
+        CanvasManagerTree.context.arc(this.position.x,this.position.y,this.radius,0,Math.PI*2,true);
+        CanvasManagerTree.context.closePath();
+        CanvasManagerTree.context.fill();
+
     this.cptNextBranchAttemp++;
-    if(this.cptNextBranchAttemp>=this.timerMaj){
+    if (this.hauteur==this.maxhauteur){
+        return;
+    }
+    if(this.cptNextBranchAttemp>=ParticleTreeRandom.timerMaj){
         this.cptNextBranchAttemp=0;
 
         for(let j=0;j<this.maxbranches;j++){
@@ -88,18 +112,23 @@ draw(){
                 this.instantiateNewBranch([getRandomFloat(-1,1),getRandomFloat(0,-1)]);
             }
         }
-
     }
-        CanvasManager.context.fillStyle = this.color;
-        CanvasManager.context.beginPath();
-        CanvasManager.context.arc(this.position.x,this.position.y,this.radius,0,Math.PI*2,true);
-        CanvasManager.context.closePath();
-        CanvasManager.context.fill();
 }
 
 instantiateNewBranch(dir){
-    new ParticleTreeRandom(
-        getRandomRGBA(),
+        let color;
+        if (ParticleTreeRandom.treeMode){
+            if (this.hauteur==this.maxhauteur-1){
+                let green = getRandomInt(100,255);
+                color = 'rgba(0,'+green+',0,1)'
+            }else{
+                color = 'rgba(165,42,42,1)'
+            }
+        }else{
+            color = getRandomRGBA()
+        }
+        let newBranch = new ParticleTreeRandom(
+        color,
         this.radius,
         this.position.x,
         this.position.y,
@@ -109,7 +138,9 @@ instantiateNewBranch(dir){
         this.maxbranches,
         this.hauteur+1,
         this.chance
-        ).instantiate();
+        );
+    ParticleTreeRandom.particleSystem.addNewBranch(newBranch);
+
 }
 
 }

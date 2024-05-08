@@ -1,0 +1,3 @@
+class CanvasManagerTree extends CanvasManager {
+
+}
