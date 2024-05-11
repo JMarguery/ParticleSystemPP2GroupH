@@ -34,6 +34,7 @@ class SimulationBase {
     }
 // Windmap,Physic
     static updateParticleCount(nb_particules) {
+        console.log(this.canvasManager);
         this.canvasManager.resetBackground();
         if (this.nb_particules > this.systemType.particles.length) {
             for (let i = this.systemType.particles.length; i < nb_particules; i++) {

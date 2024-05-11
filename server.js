@@ -32,6 +32,28 @@ app.get("/activity/:x", (req,res) => {
       res.render('index', {request : "windmap"});
   }})
 
+app.get("/test/:x", (req,res) => {
+  const activity = req.params.x;
+  switch (activity){
+    case "windmap":
+      res.render('index', {request : "test_windmap"});
+      break;
+    case "firework":
+      res.render('index',{request : "test_firework"});
+      break;
+    case "physic":
+      res.render('index',{request : "test_physic"});
+      break;
+    case "fire":
+      res.render('index',{request : "test_fire"});
+      break;
+    case "tree":
+      res.render('index',{request : "test_tree"});
+    default:
+      res.render('index', {request : "windmap"});
+  }
+});
+
 app.get("/styles/:file", (req, res) => {
   const fileName = req.params.file;
   res.sendFile(__dirname + "/styles/"+fileName, { headers: { "Content-Type": "text/css" } });
