@@ -1,20 +1,20 @@
 class ParticleFirework extends ParticlePhysic{
 
     splitammount;
-
-    constructor(color,radius,posX,posY,maxttl,splitammount){
-        super(color,radius,posX,posY,0,-2,maxttl,0.01);
+    static particleSystem;
+    constructor(color,radius,posX,posY,speedY,maxttl,splitammount){
+        super(color,radius,posX,posY,0,speedY,maxttl,0.01);
         this.splitammount=splitammount;
     }   
 
 
     split(){
-        console.log("splitting");
             let dir = genererDirectionsSymetriques(this.splitammount,0,Math.PI/4);
-        console.log(dir);
+        let childrens = []
             for(let d of dir){
-                this.instantiateFireworkChild(d);
+                childrens.push(this.instantiateFireworkChild(d));
             }
+        return childrens;
     }
 
     draw(){
@@ -26,7 +26,6 @@ class ParticleFirework extends ParticlePhysic{
     }
 
     instantiateFireworkChild(dir){
-        console.log(dir);
         let part = new ParticlePhysic(
             this.color,
             this.radius,
@@ -36,7 +35,7 @@ class ParticleFirework extends ParticlePhysic{
             dir.y,
             this.maxttl,
             this.gravity*2);
-        ParticleSystemFirework.addToSystem(part);
+        ParticleFirework.particleSystem.addNewFirework(part);
     }
 
 
@@ -46,6 +45,10 @@ class ParticleFirework extends ParticlePhysic{
         }
         this.ttl+=1
         return ((this.ttl<=this.maxttl));
+    }
+
+    static setSystem(system){
+        this.particleSystem = system;
     }
 
 }

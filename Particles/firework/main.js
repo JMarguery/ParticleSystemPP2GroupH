@@ -1,2 +1,2 @@
 
-Simulation.create();
+SimulationFirework.create();
