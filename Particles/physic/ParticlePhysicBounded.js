@@ -1,5 +1,5 @@
 
-/* 
+/*
 ___________________________________________________________
 
 Class ParticlePhysicBounded extends Particule :
@@ -92,7 +92,6 @@ class ParticlePhysicBounded extends ParticlePhysic{
             this.velocity.y*=-this.bounce_coeff;
         }else if(this.position.y-this.radius<ParticlePhysicBounded.boundingBox.up){
             this.position.y=ParticlePhysicBounded.boundingBox.up+this.radius;
-            //this.velocity.x*=-this.bounce_coeff;
             this.velocity.y*=-this.bounce_coeff;
         }
         super.draw();

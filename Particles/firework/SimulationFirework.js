@@ -41,7 +41,6 @@ class SimulationFirework extends SimulationBase {
         if(SimulationFirework.pauseButton || SimulationFirework.pause){
             return;
         }
-        //  CanvasManager.resetBackground();
         SimulationFirework.systemType.pass();
     }
 
@@ -54,7 +53,6 @@ class SimulationFirework extends SimulationBase {
         return new this.particleType(
             getRandomRGBA(),
             this.radiusParticle,
-            //this.width/2,
             getRandomFloat(0,this.width),
             this.height,
             getRandomFloat(this.minSpeedY,this.maxSpeedY),

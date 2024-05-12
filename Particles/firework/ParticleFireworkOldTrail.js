@@ -10,9 +10,7 @@ class ParticleFireworkOldTrail extends ParticleTrail{
 
 
     split(){
-        console.log("splitting");
         let dir = genererDirectionsSymetriques(this.splitammount,0,0);
-        console.log(dir);
         let childrens = []
         for(let d of dir){
             childrens.push(this.instantiateFireworkChild(d));
@@ -29,7 +27,6 @@ class ParticleFireworkOldTrail extends ParticleTrail{
     }
 
     instantiateFireworkChild(dir){
-        console.log(dir);
         let part = new ParticleTrail(
             this.color,
             this.radius,

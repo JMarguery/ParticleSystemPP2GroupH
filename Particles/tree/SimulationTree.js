@@ -46,8 +46,7 @@ class SimulationTree extends SimulationBase {
         this.systemType.create(this.nb_particules,this);
     }
 
-    static createNew(){
-        console.log("createNew");
+    static createNew(){;
         let color;
         if(this.treeMode){
             color = 'rgba(165,42,42,1)'

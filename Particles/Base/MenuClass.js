@@ -12,32 +12,53 @@ class Menu {
         this.canvasManager = canvasManager;
         this.simulation = simulation;
 
+        try{
+            document.getElementById('nb_particules').addEventListener('change', function () {
+                const nb_particules = parseInt(this.value, 10);
+                simulation.updateParticleCount(nb_particules);
+            });
+        }catch(error){
+            console.log(error);
+            console.log("nb_particule");
+        }
+        try {
+            document.getElementById('vitesseAttenuationTrace').addEventListener('change', function () {
+                const vitesseAttenuationTrace = parseFloat(this.value);
+                simulation.updateAttenuationSpeed(vitesseAttenuationTrace);
+            });
+        }catch(error){
+            console.log(error);
+            console.log("vitesseAttenuationTrace");
+        }
 
-        document.getElementById('nb_particules').addEventListener('change', function() {
-            const nb_particules = parseInt(this.value, 10);
-            simulation.updateParticleCount(nb_particules);
-        });
+        try {
+            document.getElementById('radiusParticles').addEventListener('change', function () {
+                const radiusParticles = parseFloat(this.value);
+                simulation.updateParticleRadius(radiusParticles);
+            });
+        }catch(error){
+            console.log(error);
+            console.log("radiusParticle");
+        }
+        try {
+            document.getElementById('dureeDeVieMini').addEventListener('change', function () {
+                const dureeDeVieMini = parseInt(this.value, 10);
+                simulation.updateParticleTtlMini(dureeDeVieMini);
+            });
+        }catch(error){
+            console.log(error);
+            console.log("dureeDeVieMini");
+        }
 
-        document.getElementById('vitesseAttenuationTrace').addEventListener('change', function() {
-            const vitesseAttenuationTrace = parseFloat(this.value);
-            simulation.updateAttenuationSpeed(vitesseAttenuationTrace);
-        });
-
-        document.getElementById('radiusParticles').addEventListener('change', function() {
-            const radiusParticles = parseFloat(this.value);
-            simulation.updateParticleRadius(radiusParticles);
-        });
-
-        document.getElementById('dureeDeVieMini').addEventListener('change', function() {
-            const dureeDeVieMini = parseInt(this.value, 10);
-            simulation.updateParticleTtlMini(dureeDeVieMini);
-        });
-
-        document.getElementById('dureeDeVieMaxi').addEventListener('change', function() {
-            const dureeDeVieMaxi = parseInt(this.value, 10);
-            simulation.updateParticleTtlMax(dureeDeVieMaxi);
-        });
-
+        try {
+            document.getElementById('dureeDeVieMaxi').addEventListener('change', function () {
+                const dureeDeVieMaxi = parseInt(this.value, 10);
+                simulation.updateParticleTtlMax(dureeDeVieMaxi);
+            });
+        }catch (e) {
+            console.log(e);
+            console.log("dureeDeVieMaxi")
+        }
 
         const speedFactorElement = document.getElementById('speedFactor');
         if (speedFactorElement) {

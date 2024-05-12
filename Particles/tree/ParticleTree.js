@@ -113,7 +113,6 @@ class ParticleTree extends Particle{
     split(){
         if (this.hauteur!=this.maxhauteur){
             for (let i=1;i<=Math.floor(this.maxbranches/2);i++){
-                console.log("i = "+i);
                 //left
                 if(getRandomFloat(0,1)<=this.chance){
                     this.instantiateNewBranch(this.getNewDirectionForChild(i));

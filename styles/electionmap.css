@@ -1,0 +1,62 @@
+.map-div {
+    background: #333;
+    flex-grow : 10;
+}
+
+.electionmap {
+
+    height: 100%;
+    position : relative;
+    background: #333;
+
+}
+
+.activity{
+    min-height: 89vh;
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+
+.index-div {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.simulation{
+    width : 100%;
+    /*margin-top: 20px;*/
+}
+
+#drawingCanvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.currentCandidate{
+    font-size: 20px;
+    font-style : oblique;
+}
+
+.modeLabel {
+    flex-shrink: 2;
+    margin-bottom: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+.modeDiv {
+    display : flex;
+    flex-direction: column;
+}
+.modeDivDiv {
+    display : flex;
+    flex-direction: row;
+}
+
+.modeRadio{
+    flex-shrink: 2;
+}

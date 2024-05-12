@@ -14,6 +14,9 @@ app.get("/", (req, res) => {
 app.get("/activity/:x", (req,res) => {
   const activity = req.params.x;
   switch (activity){
+    case "electionmap":
+      res.render('index', {request : "electionmap"});
+      break;
     case "windmap":
       res.render('index', {request : "windmap"});
       break;
@@ -59,10 +62,6 @@ app.get("/styles/:file", (req, res) => {
   res.sendFile(__dirname + "/styles/"+fileName, { headers: { "Content-Type": "text/css" } });
 });
 
-app.get("/navbarStyle", (req,res) => {
-  res.sendFile(__dirname + "/styles/navbar.css" , {headers : { "Content-Type" : "text/css"}});
-});
-
 app.get("/base/:file", (req,res) => {
   const fileName = req.params.file;
   res.sendFile(__dirname + "/Particles/Base/"+fileName, {headers : {"Content-Type" : "text/javascript"}});
@@ -105,6 +104,26 @@ app.get("/fireRessource/:file" , (req,res) => {
 app.get("/treeRessource/:file", (req,res) => {
   const fileName = req.params.file;
   res.sendFile(__dirname + "/Particles/tree/"+fileName , {headers : {"Content-Type" : "text/javascript"} });
+})
+
+app.get("/electionRessource/:file", (req,res) => {
+  const fileName = req.params.file;
+  res.sendFile(__dirname + "/Particles/ElectionMap/script/"+fileName , {headers : {"Content-Type" : "text/javascript"} });
+})
+
+app.get("/electionData/:file", (req,res) => {
+  const fileName = req.params.file;
+  res.sendFile(__dirname + "/Particles/ElectionMap/data/"+fileName , {headers : {"Content-Type" : "text/javascript"} });
+})
+
+app.get("/voteData/:file", (req,res) => {
+  const fileName = req.params.file;
+  res.sendFile(__dirname + "/Particles/ElectionMap/data/voteData/"+fileName , {headers : {"Content-Type" : "text/csv"} });
+})
+
+app.get("/img/:file", (req,res) => {
+  const fileName = req.params.file;
+  res.sendFile(__dirname+"/img/"+fileName, {headers : {"Content-Type" : "image/jpeg"}});
 })
 
 app.set('views', path.join(__dirname, 'views'));

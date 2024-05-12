@@ -22,9 +22,6 @@ class Simulation {
     static create(data) {
         const parent = document.getElementById("map");
         this.width = parent.clientWidth;
-        //this.height = parent.clientHeight;
-
-        //this.width = window.innerWidth-200;
         this.height = this.width*0.5;
         if(this.width < 360){
             this.width = 360;
@@ -73,24 +70,10 @@ class Simulation {
         Simulation.tt+=delta;
         Simulation.ii+=1;
         if (Simulation.tt >= 1000){
-            console.log(ParticleSystem.particles.length);
             Tester.onesec(Simulation.ii);
             Simulation.ii = 0;
             Simulation.tt = 0;
         }
-/*
-        if (fps < Simulation.fpsMin) {
-            Simulation.lowFpsCount++;
-            if (Simulation.lowFpsCount >= Simulation.maxLowFps) {
-                Simulation.nb_particules = Math.max(1000, Math.floor(ParticleSystem.particles.length / 1.25));
-                Simulation.updateParticleCountWindMap(Simulation.nb_particules);
-                updateInputNbParticles(Simulation.nb_particules);
-                Simulation.lowFpsCount = 0;
-            }
-        } else {
-            Simulation.lowFpsCount = 0;
-        }
-*/
         CanvasManager.drawAttenuatedBackground();
 
         ParticleSystem.pass();
@@ -105,7 +88,6 @@ class Simulation {
     static updateParticleCountWindMap(nb_particules) {
         nb_particules = parseInt(nb_particules);
         this.nb_particules = nb_particules;
-        console.log(nb_particules);
         CanvasManager.resetBackground();
         if (nb_particules > ParticleSystem.particles.length) {
             for (let i = ParticleSystem.particles.length; i < nb_particules; i++) {
@@ -117,7 +99,6 @@ class Simulation {
                     getRandomInt(Simulation.ttlMin, Simulation.ttlMax)
                 );
                 ParticleSystem.particles.push(p);
-                console.log(p);
             }
 
         }else if(nb_particules < ParticleSystem.particles.length){
@@ -193,7 +174,6 @@ class Simulation {
 
 
     static aa(){
-        console.log("next step");
         //ParticleSystem.create(this.nb_particules, this.radiusParticles, this.opacityParticles);
     }
 }

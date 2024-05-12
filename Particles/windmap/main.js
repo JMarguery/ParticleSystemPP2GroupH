@@ -1,4 +1,4 @@
-import jsonData from '/windmapData/vents025.json' with { type: 'json' };
+import jsonData from '/windmapData/vents025.json' with { "type": 'json' };
 
 export const data = jsonData;
 

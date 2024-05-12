@@ -22,7 +22,6 @@ class MenuTree extends Menu {
 
         document.getElementById('chance').addEventListener('change', function() {
             const chance = parseFloat(this.value, 10);
-            console.log(chance);
             simulation.updateChance(chance);
         });
 

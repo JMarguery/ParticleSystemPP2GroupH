@@ -17,8 +17,9 @@
                     <% console.log("paokok") %>
                     <% include ('partials/burgermenu-windmap')%>
                 <% } else if (request === 'firework') { %>
-                    <% console.log("okok") %>
                     <%- include ('partials/simu-firework')%>
+                <% } else if (request === 'electionmap') { %>
+                    <%- include ('partials/simu-electionmap')%>
                 <% } else if (request === 'fire') { %>
                     <%- include ('partials/simu-fire')%>
                 <% } else if (request === 'tree') { %>
