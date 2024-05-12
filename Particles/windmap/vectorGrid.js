@@ -39,11 +39,11 @@ class VectorGrid {
     static getVecteurWithInterpolation(coordX, coordY) {
         const centerX = this.cols / 2;
 
-        const coordXToCoordInVectorGrid = (coordX - CanvasManager.offsetX) / CanvasManager.zoomScale;
-        const coordYToCoordInVectorGrid = (coordY - CanvasManager.offsetY) / CanvasManager.zoomScale;
+        const coordXWithTransformations = (coordX - CanvasManager.offsetX) / CanvasManager.zoomScale;
+        const coordYWithTransformations = (coordY - CanvasManager.offsetY) / CanvasManager.zoomScale;
 
-        let x = ((coordXToCoordInVectorGrid/ CanvasManager.canvas.width) * this.cols + centerX) % this.cols;
-        let y = (coordYToCoordInVectorGrid / CanvasManager.canvas.height) * this.rows;
+        let x = ((coordXWithTransformations/ CanvasManager.canvas.width) * this.cols + centerX) % this.cols;
+        let y = (coordYWithTransformations / CanvasManager.canvas.height) * this.rows;
 
         x = (x + this.cols) % this.cols;
         y = Math.max(0, Math.min(this.rows - 1, y));
@@ -68,6 +68,27 @@ class VectorGrid {
             vectorTopLeft.y * fx0 * fy1 + vectorTopRight.y * fx1 * fy1;
 
         return { x: interpolatedX, y: interpolatedY};
+    }
+
+    static getVecteurWithoutInterpolation(coordX, coordY) {
+        const centerX = this.cols / 2;
+
+        const coordXWithTransformations = (coordX - CanvasManager.offsetX) / CanvasManager.zoomScale;
+        const coordYWithTransformations = (coordY - CanvasManager.offsetY) / CanvasManager.zoomScale;
+
+        let x = ((coordXWithTransformations/ CanvasManager.canvas.width) * this.cols + centerX) % this.cols;
+        let y = (coordYWithTransformations / CanvasManager.canvas.height) * this.rows;
+
+        x = (x + this.cols) % this.cols;
+        y = Math.max(0, Math.min(this.rows - 1, y));
+
+        const x0 = Math.floor(x);
+        const y0 = Math.floor(y);
+
+        const vectorBottomLeft = this.vecteurs[this.index(x0, y0)];
+
+
+        return { x: vectorBottomLeft.x, y: vectorBottomLeft.y};
     }
 
 
