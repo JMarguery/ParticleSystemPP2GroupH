@@ -151,6 +151,7 @@ class SimulationElection {
                 const maxVoix = SimulationElection.dataSet["data_clean"][insee]["candidats"][courantPolitiqueMajoritaire]["VOIX"];
                 const posX = SimulationElection.bg.pos[insee][0];
                 const posY = SimulationElection.bg.pos[insee][1];
+
                 const part = new Particle(
                     matchCourantPolitiqueWithRGBA(courantPolitiqueMajoritaire),
                     Math.min(50, maxVoix * 0.001),
@@ -195,7 +196,6 @@ class SimulationElection {
 
                 ParticleSystemElection.addToSystem(part);
             }catch (error){
-                console.log(error);
             }
         }
         SimulationElection.systemtype.pass();
@@ -232,8 +232,6 @@ class SimulationElection {
                 -1
             ).draw();
         } catch (error) {
-            console.log(error);
-            console.log("on insee : " + insee);
         }
     }
 
@@ -279,9 +277,7 @@ class SimulationElection {
         if(this.current_candidate_id==SimulationElection.candidate_list.length){
             this.current_candidate_id = 0;
             this.current_year_id +=1;
-            //console.log(parseInt(document.getElementById("year_perCandidate").value)+1);
             if(this.current_year_id>parseInt(document.getElementById("year_perCandidate").value)+1){
-                console.log("finished");
                 cancelAnimationFrame(SimulationElection.animation_id);
                 this.updateAffichage();
                 return;

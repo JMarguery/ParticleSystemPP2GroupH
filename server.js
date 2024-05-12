@@ -35,6 +35,7 @@ app.get("/activity/:x", (req,res) => {
       break;
     case "tree":
         res.render('index',{request : "tree"});
+        break;
     default:
       res.render('index', {request : "windmap"});
   }})
@@ -56,6 +57,7 @@ app.get("/test/:x", (req,res) => {
       break;
     case "tree":
       res.render('index',{request : "test_tree"});
+      break;
     default:
       res.render('index', {request : "windmap"});
   }
