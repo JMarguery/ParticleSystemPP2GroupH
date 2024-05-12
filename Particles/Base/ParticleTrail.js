@@ -26,7 +26,6 @@ class ParticleTrail extends ParticlePhysic{
 
     move(){
         if(!this.isMovable){
-            console.log(this);
             if (this.oldPositions.length > 0){
                 this.updateOldPositions();
                 this.oldPositions.pop();
@@ -34,7 +33,6 @@ class ParticleTrail extends ParticlePhysic{
             }
         }else {
             if((this.position.x > CanvasManager.canvas.width || this.position.x < 0 || this.position.y > CanvasManager.canvas.height || this.position.y < 0 ) || this.ttl>=this.maxttl-this.trailLength){
-                console.log("aa");
                 this.isMovable = false;
                 this.updateOldPositions();
                 this.createTrail();

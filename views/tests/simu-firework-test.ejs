@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="/styles/burgermenu.css">
+<link rel="stylesheet" href="/styles/firework.css">
+<div class = "firework" id="firework">
+    <div id="activity" class ="activity"></div>
+    <script src="/indexJs/utils.js"></script>
+    <script src="/base/Particle.js"></script>
+    <script src="/physicRessource/ParticlePhysic.js"></script>
+    <script src="/base/ParticleTrail.js"></script>
+    <script src="/fireworkRessource/ParticleFirework.js"></script>
+    <script src="/fireworkRessource/ParticleFireworkOldTrail.js"></script>
+    <script src="/base/CanvasManagerBase.js"></script>
+    <script src="/fireworkRessource/canvasManagerFirework.js"></script>
+    <script src="/base/ParticleSystemBase.js"></script>
+    <script src="/fireworkRessource/ParticleSystemFirework.js"></script>
+    <div id="burgerMenu" class="burger-menu collapsed">
+        <button onclick="MenuFirework.toggleMenu()">☰</button>
+        <button id="pauseButton" onclick="MenuFirework.pause()">❙❙</button>
+        <button onclick="SimulationFirework.restartSim()">↺</button>
+        <div class="menu-content" id="menuContent" style="display: none;">
+            <div class="input-group">
+                <button onclick="SimulationFirework.changeTraceModeTest()">Système de trace n°2</button>
+            </div>
+            <div class="input-group">
+                <label for="minSpeedY">Vitesse Y minimum : </label>
+                <input type="number" id="minSpeedY" value="-2" min="-1" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="maxSpeedY">Vitesse Y maximum : </label>
+                <input type="number" id="maxSpeedY" value="-3" min="-1" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="splitAmmount">Nombre de particules générés : </label>
+                <input type="number" id="splitAmmount" value="12" min="0" step="1">
+            </div>
+                <input type="hidden" id="traceMode">
+
+
+
+        </div>
+    </div>
+</div>
+</div>
+<script src = "/base/MenuClass.js"></script>
+<script src="/fireworkRessource/MenuFirework.js"></script>
+<script src ="/base/Tester.js"></script>
+<script src="/base/SimulationBase.js"></script>
+<script src="/fireworkRessource/SimulationFireworkTest.js"></script>
+<script src="/fireworkRessource/main.js"></script>
+</html>

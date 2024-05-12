@@ -44,12 +44,12 @@ class SimulationPhysic extends SimulationBase{
         this.systemType.create(this.nb_particules,this);
 
         Tester.create(0,
-            50000,
-            500,
+            25000,
+            200,
             5,
             SimulationPhysic.updateParticleCount,
             this.a,
-            10,
+            5,
             SimulationPhysic.animate
         )
 

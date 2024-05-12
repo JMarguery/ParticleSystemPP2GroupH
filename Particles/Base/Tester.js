@@ -59,13 +59,7 @@ class Tester {
 
     static next_step(){
 
-        /*
-        if (window.performance && window.performance.memory) {
-            console.log("Utilisation de la mémoire : ", (window.performance.memory.usedJSHeapSize/(1024*1024)).toFixed(0));
-        } else {
-            console.log("API de performance mémoire non disponible.");
-        }
-        */
+
         this.data.push({
             nb_particule : this.nb_particule,
             measurement_ammount : this.measurement_amount,
@@ -93,12 +87,22 @@ class Tester {
     }
 
     static ttt(arg){
+        console.log("nombre de particule : "+arg);
         Tester.func_change_nb_particule(arg);
     }
 
     static stop_sim(){
         console.log("____________________________________")
-        console.log(this.printdata);
+        this.sendToServer();
     }
 
+    static sendToServer(){
+        fetch('/writeTest',{
+            method: 'POST',
+            headers: {
+                'Content-Type' : "application/json",
+            },
+            body : JSON.stringify(Tester.printdata)
+        });
+    }
 }

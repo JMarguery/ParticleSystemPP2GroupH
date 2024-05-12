@@ -3,7 +3,11 @@ const router = express.Router();
 const PORT = 3000;
 const app = express();
 const path = require('path');
+const fs = require('fs');
+const bodyParser = require('body-parser');
 app.set('view engine', 'ejs');
+
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
     request = "windmap";
@@ -60,6 +64,10 @@ app.get("/test/:x", (req,res) => {
 app.get("/styles/:file", (req, res) => {
   const fileName = req.params.file;
   res.sendFile(__dirname + "/styles/"+fileName, { headers: { "Content-Type": "text/css" } });
+});
+
+app.get("/navbarStyle", (req, res) => {
+  res.sendFile(__dirname + "/styles/navbar.css", { headers: { "Content-Type": "text/css" } });
 });
 
 app.get("/base/:file", (req,res) => {
@@ -125,6 +133,18 @@ app.get("/img/:file", (req,res) => {
   const fileName = req.params.file;
   res.sendFile(__dirname+"/img/"+fileName, {headers : {"Content-Type" : "image/jpeg"}});
 })
+
+app.post("/writeTest",(req,res) => {
+  const dict = req.body;
+  console.log("dict = ");
+  console.log(dict);
+  fs.writeFile("./tests/test.json",JSON.stringify(dict),(err) => {
+    if(err){
+      console.error("Erreur lors de l'écriture du fichier : ",err);
+    }
+    console.log("Test écris avec succès dans ./tests/test.json");
+  })
+});
 
 app.set('views', path.join(__dirname, 'views'));
 

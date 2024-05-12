@@ -43,12 +43,12 @@ class Simulation {
         ParticleSystem.create(this.nb_particules, this.radiusParticles, this.opacityParticles);
 
         Tester.create(0,
-            50000,
+            500,
             100,
             0,
             Simulation.updateParticleCountWindMap,
             this.aa,
-            10,
+            5,
             this.animate
         )
 
