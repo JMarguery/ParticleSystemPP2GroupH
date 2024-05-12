@@ -26,11 +26,12 @@ class SimulationFirework extends SimulationBase {
     static animationFrame;
 
 
-    static splitAmount = 12;
+    static splitAmount = 6;
     static min_nb_particule = 0;
     static max_nb_particule = 5000;
-    static step_nb_particule = 100;
-    static measurement_amount = 5;
+    static step_nb_particule = 50;
+    static measurement_amount = 1;
+    static step_per_measure = 500;
     static create(){
         super.create("activity",ParticleFirework,ParticleSystemFirework,CanvasManager);
         this.width = this.parent.clientWidth;
@@ -41,18 +42,18 @@ class SimulationFirework extends SimulationBase {
         ParticleFirework.setSystem(this.systemType);
         ParticleFireworkOldTrail.setSystem(this.systemType);
 
-        Tester.create(
-            0,
-            5000,
-            100,
-            0,
+        TesterFirework.create(
+            this.min_nb_particule,
+            this.max_nb_particule,
+            this.step_nb_particule,
+            5,
             SimulationFirework.updateParticleCount,
             SimulationFirework.aa,
-            5,
+            this.measurement_amount,
+            this.step_per_measure,
             this.animate
         )
         this.animate(performance.now());
-        //Tester.startTest();
 
     }
 
@@ -66,9 +67,9 @@ class SimulationFirework extends SimulationBase {
         SimulationFirework.lastFrameTime = time;
         SimulationFirework.timeElapsed+=delta;
         SimulationFirework.frameNumber+=1;
-        if(SimulationFirework.timeElapsed>=1000){
+        if(SimulationFirework.frameNumber>=SimulationFirework.step_per_measure){
+            TesterFirework.onestep(SimulationFirework.timeElapsed,SimulationFirework.frameNumber);
             SimulationFirework.timeElapsed = 0;
-            Tester.onesec(SimulationFirework.frameNumber);
             SimulationFirework.frameNumber = 0;
         }
 

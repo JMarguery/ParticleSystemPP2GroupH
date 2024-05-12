@@ -59,7 +59,7 @@ class Tester {
 
     static next_step(){
 
-
+        console.log("okok");
         this.data.push({
             nb_particule : this.nb_particule,
             measurement_ammount : this.measurement_amount,
@@ -88,7 +88,7 @@ class Tester {
 
     static ttt(arg){
         console.log("nombre de particule : "+arg);
-        Tester.func_change_nb_particule(arg);
+        this.func_change_nb_particule(arg);
     }
 
     static stop_sim(){

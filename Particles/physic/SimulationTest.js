@@ -45,7 +45,7 @@ class SimulationPhysic extends SimulationBase{
 
         Tester.create(0,
             25000,
-            200,
+            100,
             5,
             SimulationPhysic.updateParticleCount,
             this.a,
