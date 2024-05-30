@@ -1,0 +1,53 @@
+<link rel="stylesheet" href="/styles/style.css">
+<link rel="stylesheet" href="/styles/fire.css">
+<div class = "fire" id = "fire">
+    <div id="activity" class="activity"></div>
+        <script src="/indexJs/utils.js"></script>
+        <script src="/base/Particle.js"></script>
+        <script src="/fireRessource/ParticleFire.js"></script>
+        <script src = "/fireRessource/CanvasManagerFire.js"></script>
+        <script src = "/base/ParticleSystemBase.js"></script>
+        <script src = "/fireRessource/ParticleSystemFire.js"></script>
+
+
+    <div id="burgerMenu" class="burger-menu collapsed">
+        <button onclick="MenuFire.toggleMenu()">☰</button>
+        <button id="pauseButton" onclick="MenuFire.pause()">❙❙</button>
+        <div class="menu-content" id="menuContent" style="display: none;">
+            <div class="input-group">
+                <label for="nb_particules">Nombre de particules:</label>
+                <input type="number" id="nb_particules" value="300" min="0">
+            </div>
+            <div class="input-group">
+                <label for="vitesseAttenuationTrace">Vitesse d'atténuation:</label>
+                <input type="number" id="vitesseAttenuationTrace" value="0.15" step="0.01" min="0">
+            </div>
+            <div class="input-group">
+                <label for="radiusParticles">Rayon des particules:</label>
+                <input type="number" id="radiusParticles" value="5" step="0.1" min="0">
+            </div>
+            <div class="input-group">
+                <label for="dureeDeVieMini">Durée de vie min:</label>
+                <input type="number" id="dureeDeVieMini" value="100" min="1">
+            </div>
+            <div class="input-group">
+                <label for="dureeDeVieMaxi">Durée de vie max:</label>
+                <input type="number" id="dureeDeVieMaxi" value="200" min="1">
+            </div>
+            <div class="input-group">
+                <label for="spreadX">Spread X des particules :</label>
+                <input type="number" id="spreadX" value="3" min="0">
+            </div>
+            <div class="input-group">
+                <label for="spreadY">Spread Y des particules :</label>
+                <input type="number" id="spreadY" value="6" min="0">
+            </div>
+        </div>
+    </div>
+    <script src = "/base/MenuClass.js"></script>
+    <script src = "/fireRessource/MenuFire.js"></script>
+    <script src = "/base/SimulationBase.js"></script>
+    <script src = "/fireRessource/SimulationFire.js"></script>
+    <script src = "/fireRessource/mainFire.js"></script>
+</div>
+</html>

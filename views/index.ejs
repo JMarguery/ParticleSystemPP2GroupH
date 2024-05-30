@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>ParticleWindMap</title>
+        <script src="/indexJs/utils.js"></script>
+    </head>
+    <body>
+        <div class = "index-div">
+            <div class="nav-div">
+                <%- include ('partials/navbar') %>
+            </div>
+
+            <div class = "map-div">
+
+                <% if (!request) { %>
+                    <% console.log("paokok") %>
+                    <% include ('partials/burgermenu-windmap')%>
+                <% } else if (request === 'firework') { %>
+                    <%- include ('partials/simu-firework')%>
+                <% } else if (request === 'electionmap') { %>
+                    <%- include ('partials/simu-electionmap')%>
+                <% } else if (request === 'fire') { %>
+                    <%- include ('partials/simu-fire')%>
+                <% } else if (request === 'tree') { %>
+                    <%- include ('partials/simu-tree')%>
+                <% } else if (request === 'physic') { %>
+                    <%- include ('partials/simu-physic')%>
+
+                <% } else if (request === 'test_windmap') {%>
+                    <%- include ('tests/simu-windmap-test')%>
+                <% } else if (request === 'test_physic') {%>
+                    <%- include ('tests/simu-physic-test')%>
+                <% } else if (request === 'test_firework') {%>
+                    <%- include ('tests/simu-firework-test')%>
+                <% } else { %>
+                    <%-include ('partials/simu-windmap')%>
+                <% } %>
+
+            </div>
+        </div>
+    </body>
+</html>

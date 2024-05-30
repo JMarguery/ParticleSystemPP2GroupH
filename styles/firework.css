@@ -1,0 +1,37 @@
+.map-div {
+    background: #333;
+    flex-grow : 10;
+}
+
+.firework {
+
+    height: 100%;
+    position : relative;
+    background: #333;
+
+}
+
+.activity{
+    min-height: 89vh;
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+
+.index-div {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.simulation{
+    width : 100%;
+    /*margin-top: 20px;*/
+}
+
+#drawingCanvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+}

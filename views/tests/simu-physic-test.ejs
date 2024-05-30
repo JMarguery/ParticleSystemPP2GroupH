@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="/styles/physic.css">
+<link rel="stylesheet" href="/styles/burgermenu.css">
+<div class = "physic" id = "physic">
+    <div id="activity" class="activity"></div>
+
+    <script src="/indexJs/utils.js"></script>
+    <script src="/base/Particle.js"></script>
+    <script src="/physicRessource/ParticlePhysic.js"></script>
+    <script src="/physicRessource/ParticlePhysicBounded.js"></script>
+    <script src = "/physicRessource/CanvasManagerPhysic.js"></script>
+    <script src = "/base/ParticleSystemBase.js"></script>
+    <script src = "/physicRessource/ParticleSystemPhysic.js"></script>
+
+
+
+
+
+    <div id="burgerMenu" class="burger-menu collapsed">
+        <button onclick="MenuPhysic.toggleMenu()">☰</button>
+        <button id="pauseButton" onclick="MenuPhysic.pause()">❙❙</button>
+        <button onclick="Menu.zoomOutButton()">-</button>
+        <div class="menu-content" id="menuContent" style="display: none;">
+            <div class="input-group">
+                <label for="nb_particules">Nombre de particules:</label>
+                <input type="number" id="nb_particules" value="500" min="0">
+            </div>
+            <div class="input-group">
+                <label for="vitesseAttenuationTrace">Vitesse d'atténuation:</label>
+                <input type="number" id="vitesseAttenuationTrace" value="0.1" step="0.01" min="0">
+            </div>
+            <div class="input-group">
+                <label for="radiusParticles">Rayon des particules:</label>
+                <input type="number" id="radiusParticles" value="5" step="0.1" min="0">
+            </div>
+            <div class="input-group">
+                <label for="dureeDeVieMini">Durée de vie min:</label>
+                <input type="number" id="dureeDeVieMini" value="300" min="1">
+            </div>
+            <div class="input-group">
+                <label for="dureeDeVieMaxi">Durée de vie max:</label>
+                <input type="number" id="dureeDeVieMaxi" value="500" min="1">
+            </div>
+            <div class="input-group">
+                <label for="speedFactor">Multiplicateur de Vitesse:</label>
+                <input type="number" id="speedFactor" value="1" min="0">
+            </div>
+            <div class="input-group">
+                <label for="gravityParticle">Gravité :</label>
+                <input type="number" id="gravityParticle" min="0.05">
+            </div>
+            <div class="input-group">
+                <label for="bounceCoeff">Coefficient de rebond:</label>
+                <input type="number" id="bounceCoeff" value="0.08" step="0.01" min="0" max="1">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src = "/base/MenuClass.js"></script>
+<script src = "/physicRessource/menu.js"></script>
+<script src = "/base/SimulationBase.js"></script>
+<script src = "/base/tester.js"></script>
+<script src = "/physicRessource/SimulationTest.js"></script>
+<script src = "/physicRessource/mainPhysic.js"></script>

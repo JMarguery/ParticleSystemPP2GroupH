@@ -23,7 +23,7 @@ function getRandomRGBA(){
     let red = getRandomInt(0, 255);
     let green = getRandomInt(0, 255);
     let blue = getRandomInt(0, 255);
-    let alpha = 1; // You specified alpha as 1, which means fully opaque
+    let alpha = 1;
 
     return `rgba(${red},${green},${blue},${alpha})`;
 }
@@ -61,3 +61,24 @@ function genererDirectionsSymetriques(nombreParticules, angleDirectionInitiale, 
     }
     return directions;
 }
+
+Array.prototype.sample = function(){
+    return this[Math.floor(Math.random()*this.length)];
+}
+
+
+/*
+function getActivity(name){
+    var script = document.createElement('script');
+    switch (name) {
+        case "windmap":
+            script.src =
+        case "fire":
+            return
+        case "firework":
+            return
+        case "tree":
+            return
+    }
+}
+*/

@@ -1,0 +1,108 @@
+.activity{
+    min-height: 89vh;
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+.burger-menu {
+    display : flex;
+    position : absolute;
+    right:0;
+    top:0;
+    flex-direction : column;
+    background: rgba(0,0,0,0);
+    z-index: 100;
+    padding: 20px;
+    padding-right: -100px;
+    box-sizing: border-box;
+    background: rgba(51,51,51,0.5);
+    min-height: 94.6vh;
+    max-height: 94.6vh;
+    /*flex-basis : 20vw;*/
+}
+
+.burger-menu.collapsed {
+    display : flex;
+
+    opacity : 1;
+    background: rgba(0,0,0,0);
+    padding: 10px;
+}
+
+.menu-content {
+    position : relative;
+    top:0px;left:0px;
+    display: none;
+    overflow-y: auto;
+
+}
+
+.menu-content.open {
+
+    display: block;
+}
+
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: white;
+    font-size: 16px;
+}
+
+
+input[type="number"] {
+    z-index: 100;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 8px rgba(0, 86, 179, 0.2);
+}
+
+button {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+
+
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #0056b3;
+}
+
+
+.input-group {
+    position : relative;
+    top:0px;left:0px;
+    z-index: 100;
+    margin-bottom: 15px;
+}
+
+.input-group label, .input-group input {
+    position : relative;
+    top:0px;left:0px;
+    display: block;
+    width: 100%;
+}
+
+.input-group input {
+    margin-top: 5px;
+}

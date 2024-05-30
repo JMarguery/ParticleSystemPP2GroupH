@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="/styles/tree.css">
+<link rel="stylesheet" href="/styles/burgermenu.css">
+<div class = "tree" id = "tree">
+    <div id="activity" class="activity"></div>
+
+    <script src="/indexJs/utils.js"></script>
+    <script src="/base/Particle.js"></script>
+    <script src="/treeRessource/ParticleTree.js"></script>
+    <script src="/treeRessource/ParticleTreeRandom.js"></script>
+    <script src ="/physicRessource/CanvasManagerPhysic.js"></script>
+    <script src = "/treeRessource/CanvasManagerTree.js"></script>
+    <script src = "/base/ParticleSystemBase.js"></script>
+    <script src = "/treeRessource/ParticleSystemTree.js"></script>
+
+
+    <div id="burgerMenu" class="burger-menu collapsed">
+        <button onclick="MenuTree.toggleMenu()">☰</button>
+        <button id="pauseButton" onclick="MenuTree.pause()">❙❙</button>
+        <button onclick="SimulationTree.restartSim()">↺</button>
+        <div class="menu-content" id="menuContent" style="display: none;">
+            <div class="input-group">
+                <label for="nb_particules">Nombre de particules:</label>
+                <input type="number" id="nb_particules" value="500" min="0">
+            </div>
+            <div class="input-group">
+                <label for="radiusParticles">Rayon des particules:</label>
+                <input type="number" id="radiusParticles" value="5" step="0.1" min="0">
+            </div>
+            <div class="input-group">
+                <label for="dureeDeVieMini">Durée de vie min:</label>
+                <input type="number" id="dureeDeVieMini" value="300" min="1">
+            </div>
+            <div class="input-group">
+                <label for="dureeDeVieMaxi">Durée de vie max:</label>
+                <input type="number" id="dureeDeVieMaxi" value="500" min="1">
+            </div>
+            <div class="input-group">
+                <label for="speedFactor">Multiplicateur de Vitesse:</label>
+                <input type="number" id="speedFactor" value="1" min="0">
+            </div>
+
+            <div class="input-group">
+                <label for="maxBranch">Maximum de branch par split :</label>
+                <input type="number" id="maxBranch" value="2" min="0">
+            </div>
+
+            <div class="input-group">
+                <label for="hauteur">Hauteur maximale : </label>
+                <input type="number" id="hauteur" value="5" min="0">
+            </div>
+
+            <div class="input-group">
+                <label for="chance">Chance de duplication :</label>
+                <input type="number" id="chance" value="1" min="0" step="0.01">
+            </div>
+
+            <div class="input-group">
+                <label for="treeMode">Mode arbre : </label>
+                <input type="checkbox" id="treeMode">
+            </div>
+
+            <div class="input-group">
+                <label for="timerMaj">nombre de frame entre les générations de branches : </label>
+                <input type="number" id="timerMaj" value="30" min="0">
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+<label id = "vitesseAttenuationTrace"></label>
+<script src = "/base/MenuClass.js"></script>
+<script src ="/treeRessource/MenuTree.js"></script>
+<script src = "/base/SimulationBase.js"></script>
+<script src = "/treeRessource/SimulationTree.js"></script>
+<script src = "/treeRessource/mainTree.js"></script>
